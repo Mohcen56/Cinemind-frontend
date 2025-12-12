@@ -1,7 +1,7 @@
 <div align="center">
   <br />
   
-  <h1>🎬 CineMind</h1>
+  <h1>🎬 CineMind AI </h1>
   
   <div>
     <img src="https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=next.js&color=000000" alt="next.js" />
