@@ -120,8 +120,8 @@ const App = () => {
 
       <div className="wrapper">
         <header className="relative">
-          <div className="absolute top-0 left-0 z-50">
-            <UserProfileDropdown align="left" />
+          <div className="absolute top-2 left-6 z-50">
+            <UserProfileDropdown align="left" leftOffset="left-5" />
           </div>
           <Image src="/hero.png" alt="Hero Banner" width={1200} height={300} unoptimized />
           <h1>Find <span className="text-gradient">Movies</span> You will Enjoy Without the Hassle</h1>
@@ -130,7 +130,7 @@ const App = () => {
         </header>
 
         {trendingMovies.length > 0 && (
-          <section className="trending ">
+          <section className="trending w-7xl mx-auto mb-12">
             <h2>Trending Movies</h2>
 
             <Carousel className='bg-primary' >
@@ -166,7 +166,7 @@ const App = () => {
           </section>
         )}
 
-        <section className="all-movies">
+        <section className="all-movies max-w-7xl mx-auto w-full">
           <h2>All Movies</h2>
 
           {isLoading ? (

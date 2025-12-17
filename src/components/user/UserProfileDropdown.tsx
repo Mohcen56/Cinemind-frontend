@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuthGate } from "@/src/hooks/useAuthGate";
+import { Bookmark } from "lucide-react";
 
 
 
@@ -40,7 +41,7 @@ const Icon = {
 
 
 
-export default function UserDropdown({ align = "left" } ) {
+export default function UserDropdown({ align = "left", leftOffset = "left-30", rightOffset = "right-0" }: { align?: "left" | "right"; leftOffset?: string; rightOffset?: string }) {
   const { user, isLoading, logout } = useAuthGate();
  
   const [open, setOpen] = useState(false);
@@ -70,8 +71,8 @@ export default function UserDropdown({ align = "left" } ) {
 
   if (isLoading) return null;
 
-  const sideClass = align === "left" ? "left-0" : "right-0";
-  const arrowSide = align === "left" ? "left-4" : "right-4";
+  const sideClass = align === "left" ? leftOffset : rightOffset;
+  
   
   // If no user, show guest dropdown with login option
   if (!user) {
@@ -79,7 +80,7 @@ export default function UserDropdown({ align = "left" } ) {
       <div className="flex z-50" ref={ref}>
         <button
           onClick={() => setOpen((v) => !v)}
-          className="flex w-20 h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
+          className="flex w-10 h-10 sm:w-20 sm:h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
           aria-label="Toggle user menu"
           title="User menu"
         >
@@ -97,10 +98,10 @@ export default function UserDropdown({ align = "left" } ) {
 
         {open && (
           <div
-            className={`absolute ${sideClass} left-5 sm:left-5 top-23 w-40 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
+            className={`absolute ${sideClass} top-23 w-40 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
           >
             <div
-              className={`absolute ${arrowSide} -top-1.5 w-3 h-3 bg-white dark:bg-zinc-900 border-t border-l border-gray-200 dark:border-zinc-700 rotate-45`}
+              className={`absolute -top-1.5 w-3 h-3 bg-white dark:bg-zinc-900 border-t border-l border-gray-200 dark:border-zinc-700 rotate-45`}
             />
 
             {/* Menu */}
@@ -121,7 +122,7 @@ export default function UserDropdown({ align = "left" } ) {
     <div className="flex z-50" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-20 h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
+        className="flex w-12 h-12 sm:w-20 sm:h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
         aria-label="Toggle user profile menu"
         title="Profile menu"
       >
@@ -140,10 +141,10 @@ export default function UserDropdown({ align = "left" } ) {
 
       {open && (
         <div
-          className={`absolute ${sideClass} left-5 sm:left-5 top-23 w-70 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
+          className={`absolute ${sideClass}   top-23 w-70 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
         >
           <div
-            className={`absolute ${arrowSide} -top-1.5 w-3 h-3 bg-white dark:bg-zinc-900 border-t border-l border-gray-200 dark:border-zinc-700 rotate-45`}
+            className={`absolute -top-1.5 w-3 h-3 bg-white dark:bg-zinc-900 border-t border-l border-gray-200 dark:border-zinc-700 rotate-45`}
           />
 
           {/* Header */}
@@ -189,6 +190,12 @@ export default function UserDropdown({ align = "left" } ) {
                   onClick={() => router.push("/profile")}
                 />
             
+            <MenuItem
+                  icon={<Bookmark className="w-4 h-7"/>}
+                  text="Saved Movies"
+                  onClick={() => router.push("/saved")}
+                />
+
             <MenuItem
                   icon={<Icon.Settings />}
                   text="Settings"

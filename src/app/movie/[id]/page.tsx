@@ -3,11 +3,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { fetchMovieDetail } from "@/src/lib/api/api";
+import { fetchMovieDetail, toggleMovieLike, toggleMovieSave, getMovieInteraction } from "@/src/lib/api/api";
 import type { MovieDetail } from "@/src/types/movieDetail";
 import Spinner from "@/src/components/Spinner";
 import CastGrid from "@/src/components/CastGrid";
 import RecommendationsCarousel from "@/src/components/RecommendationsCarousel";
+import { Bookmark, BookmarkCheck, Heart } from "lucide-react";
 
 export default function MovieDetailPage() {
   const params = useParams();
@@ -15,6 +16,8 @@ export default function MovieDetailPage() {
   const [movie, setMovie] = useState<MovieDetail | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [isSaved, setIsSaved] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -22,9 +25,19 @@ export default function MovieDetailPage() {
         setLoading(true);
         const data = await fetchMovieDetail(movieId);
         console.log("Movie data loaded:", data);
-        console.log("Cast data:", data.credits?.cast);
-        console.log("Recommendations:", data.recommendations?.results);
         setMovie(data);
+        
+        // Load user's interaction status if authenticated
+        try {
+          const interaction = await getMovieInteraction(movieId);
+          setIsSaved(interaction.is_saved || false);
+          setIsLiked(interaction.is_liked || false);
+        } catch (err) {
+          // User not authenticated or error fetching interaction
+          console.log("Could not load interaction:", err);
+          setIsSaved(false);
+          setIsLiked(false);
+        }
       } catch (err) {
         console.error("Error loading movie:", err);
         setError("Failed to load movie details");
@@ -37,6 +50,26 @@ export default function MovieDetailPage() {
       loadMovie();
     }
   }, [movieId]);
+
+  const handleToggleSave = async () => {
+    try {
+      const response = await toggleMovieSave(movieId);
+      setIsSaved(response.is_saved);
+    } catch (err) {
+      console.error("Error toggling save:", err);
+      alert("Please login to save movies");
+    }
+  };
+
+  const handleLike = async () => {
+    try {
+      const response = await toggleMovieLike(movieId);
+      setIsLiked(response.is_liked);
+    } catch (err) {
+      console.error("Error toggling like:", err);
+      alert("Please login to like movies");
+    }
+  };
 
   if (loading) return <Spinner />;
   if (error || !movie)
@@ -173,8 +206,6 @@ export default function MovieDetailPage() {
               </div>
             </div>
 
-     
-
             {/* Overview */}
             <div className="space-y-4">
               <h2 className="text-2xl font-bold text-light-100">Overview</h2>
@@ -183,44 +214,62 @@ export default function MovieDetailPage() {
               </p>
             </div>
 
-            {/* Directors */}
-            {movie.credits?.crew && movie.credits.crew.filter((person) => person.job === "Director").length > 0 && (
-              <div className="space-y-2">
-                <h3 className="text-lg font-bold text-light-100">
-                  Director{movie.credits.crew.filter((person) => person.job === "Director").length > 1 ? "s" : ""}
-                </h3>
-                <div className="flex gap-3 flex-wrap">
-                  {movie.credits.crew
-                    .filter((person) => person.job === "Director")
-                    .slice(0, 2)
-                    .map((director) => (
-                      <span
-                        key={director.id}
-                        className="text-light-200 bg-dark-100 px-3 py-1 rounded text-sm"
-                      >
-                        {director.name}
-                      </span>
-                    ))}
-                </div>
-              </div>
-            )}
+            {/* Action Buttons */}
+            <div className="flex gap-4 flex-wrap mt-6">
+              {/* Save/Unsave Toggle Button */}
+              <button
+                onClick={handleToggleSave}
+                title={isSaved ? "Unsave" : "Save"}
+                aria-label={isSaved ? "Unsave" : "Save"}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg ${
+                  isSaved
+                    ? 'bg-emerald-500 hover:bg-emerald-600 text-white'
+                    : 'bg-blue-500 hover:bg-blue-600 text-white'
+                }`}
+              >
+                {isSaved ? (
+                  <>
+                    <BookmarkCheck className="h-5 w-5" />
+                    <span>Saved</span>
+                  </>
+                ) : (
+                  <>
+                    <Bookmark className="h-5 w-5" />
+                    <span>Save</span>
+                  </>
+                )}
+              </button>
 
-            {/* Trailer Button */}
-            {trailerVideo && (
-              <div className="pt-4">
+              {/* Like Button */}
+              <button
+                onClick={handleLike}
+                title={isLiked ? "Unlike" : "Like"}
+                aria-label={isLiked ? "Unlike" : "Like"}
+                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg ${
+                  isLiked ? 'bg-rose-600 hover:bg-rose-700 text-white' : 'bg-pink-500 hover:bg-pink-600 text-white'
+                }`}
+              >
+                <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
+                <span>{isLiked ? "Liked" : "Like"}</span>
+              </button>
+          </div>
+         
+            <div className="mt-4">
+              {/* Trailer Button */}
+              {trailerVideo && (
                 <a
                   href={`https://www.youtube.com/watch?v=${trailerVideo.key}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block px-8 py-3 bg-linear-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105"
+                  className="inline-block px-8 py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105"
                 >
                   ▶ Watch Trailer
                 </a>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
-</section>
+      </section>
         
         {/* Cast Section */}
         <div className=" mx-auto px-4 sm:px-6 lg:px-4">

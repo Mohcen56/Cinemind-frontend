@@ -30,3 +30,24 @@ export async function fetchTrending() {
   return res.data;
 }
 
+// Movie interactions (likes and saves)
+export async function toggleMovieLike(movieId: number) {
+  const res = await api.post(`auth/movies/${movieId}/like/`);
+  return res.data;
+}
+
+export async function toggleMovieSave(movieId: number) {
+  const res = await api.post(`auth/movies/${movieId}/save/`);
+  return res.data;
+}
+
+export async function getMovieInteraction(movieId: number) {
+  const res = await api.get(`auth/movies/${movieId}/interaction/`);
+  return res.data;
+}
+
+export async function getSavedMovies() {
+  const res = await api.get('auth/movies/saved/');
+  return res.data;
+}
+

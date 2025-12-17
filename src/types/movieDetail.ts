@@ -9,7 +9,8 @@ export type MovieDetail = {
   genres: Array<{ id: number; name: string }>;
   runtime: number;
   status: string;
-  original_language: string;
+  isSaved: boolean;
+  isLiked: boolean;
   credits: {
     cast: Array<{
       id: number;
