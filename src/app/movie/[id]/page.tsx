@@ -3,12 +3,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { fetchMovieDetail, toggleMovieLike, toggleMovieSave, getMovieInteraction } from "@/src/lib/api/api";
+import { fetchMovieDetail, rateMovie, toggleMovieSave, getMovieInteraction } from "@/src/lib/api/api";
 import type { MovieDetail } from "@/src/types/movieDetail";
 import Spinner from "@/src/components/Spinner";
 import CastGrid from "@/src/components/CastGrid";
 import RecommendationsCarousel from "@/src/components/RecommendationsCarousel";
-import { Bookmark, BookmarkCheck, Heart } from "lucide-react";
+import { Bookmark, BookmarkCheck } from "lucide-react";
+import StarRating from "@/src/components/StarRating";
+import { useAuthGate } from "@/src/hooks/useAuthGate";
 
 export default function MovieDetailPage() {
   const params = useParams();
@@ -17,7 +19,8 @@ export default function MovieDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [isSaved, setIsSaved] = useState(false);
-  const [isLiked, setIsLiked] = useState(false);
+  const [userRating, setUserRating] = useState<number>(0);
+  const { user } = useAuthGate();
 
   useEffect(() => {
     const loadMovie = async () => {
@@ -31,12 +34,12 @@ export default function MovieDetailPage() {
         try {
           const interaction = await getMovieInteraction(movieId);
           setIsSaved(interaction.is_saved || false);
-          setIsLiked(interaction.is_liked || false);
+          setUserRating(interaction.rating || 0);
         } catch (err) {
           // User not authenticated or error fetching interaction
           console.log("Could not load interaction:", err);
           setIsSaved(false);
-          setIsLiked(false);
+          setUserRating(0);
         }
       } catch (err) {
         console.error("Error loading movie:", err);
@@ -61,13 +64,13 @@ export default function MovieDetailPage() {
     }
   };
 
-  const handleLike = async () => {
+  const handleRatingChange = async (newRating: number) => {
     try {
-      const response = await toggleMovieLike(movieId);
-      setIsLiked(response.is_liked);
+      const response = await rateMovie(movieId, newRating);
+      setUserRating(newRating);
     } catch (err) {
-      console.error("Error toggling like:", err);
-      alert("Please login to like movies");
+      console.error("Error rating movie:", err);
+      alert("Please login to rate movies");
     }
   };
 
@@ -120,7 +123,7 @@ export default function MovieDetailPage() {
     </div>
   )}
         {/* --- MAIN CONTENT (poster + details) --- */}
-        <div className="relative items-center justify-center py-10 px-20 z-10 flex flex-col lg:flex-row gap-8">
+        <div className="relative items-center py-10 px-20 z-10 flex flex-col lg:flex-row gap-8">
             {/* Poster */}
             <div className="shrink-0">
             <div className="w-90 h-auto rounded-lg overflow-hidden shadow-2xl">
@@ -215,7 +218,7 @@ export default function MovieDetailPage() {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-4 flex-wrap mt-6">
+            <div className="flex gap-4 flex-wrap items-center mt-6">
               {/* Save/Unsave Toggle Button */}
               <button
                 onClick={handleToggleSave}
@@ -240,18 +243,17 @@ export default function MovieDetailPage() {
                 )}
               </button>
 
-              {/* Like Button */}
-              <button
-                onClick={handleLike}
-                title={isLiked ? "Unlike" : "Like"}
-                aria-label={isLiked ? "Unlike" : "Like"}
-                className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg ${
-                  isLiked ? 'bg-rose-600 hover:bg-rose-700 text-white' : 'bg-pink-500 hover:bg-pink-600 text-white'
-                }`}
-              >
-                <Heart className={`h-5 w-5 ${isLiked ? 'fill-current' : ''}`} />
-                <span>{isLiked ? "Liked" : "Like"}</span>
-              </button>
+              {/* Star Rating - Only for authenticated users */}
+              {user && (
+                <div className="flex items-center gap-3 px-6 py-3  rounded-xl border border-light-200 border-opacity-30">
+                  <span className="text-light-100 font-medium">Your Rating:</span>
+                  <StarRating
+                    rating={userRating}
+                    onRatingChange={handleRatingChange}
+                    size={28}
+                  />
+                </div>
+              )}
           </div>
          
             <div className="mt-4">

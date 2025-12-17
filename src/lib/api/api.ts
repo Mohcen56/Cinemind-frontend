@@ -30,9 +30,9 @@ export async function fetchTrending() {
   return res.data;
 }
 
-// Movie interactions (likes and saves)
-export async function toggleMovieLike(movieId: number) {
-  const res = await api.post(`auth/movies/${movieId}/like/`);
+// Movie interactions (rating and saves)
+export async function rateMovie(movieId: number, rating: number) {
+  const res = await api.post(`auth/movies/${movieId}/rate/`, { rating });
   return res.data;
 }
 
