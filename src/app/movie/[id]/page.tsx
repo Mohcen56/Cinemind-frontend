@@ -69,7 +69,7 @@ export default function MovieDetailPage() {
     <main className="bg-primary text-light-100 min-w-sceen min-h-screen">
     
 
-     <div className="relative mx-auto  py-8">
+     <div className="relative mx-auto  py-1">
     <section className="relative z-10 mb-15">
     {/* --- BACKDROP BEHIND EVERYTHING --- */}
     {backdropUrl && (
