@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import "../styles/globals.css";
+import { QueryProvider } from "@/src/providers/QueryProvider";
 
 export const metadata: Metadata = {
   title: "Cinemind",
@@ -27,7 +28,9 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-        {children}
+         <QueryProvider>
+          {children}
+         </QueryProvider>
       </body>
     </html>
   );

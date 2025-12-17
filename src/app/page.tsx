@@ -9,7 +9,9 @@ import Pagination from '../components/Pagination'
 import { useDebounce } from 'react-use'
 import { updateSearch, fetchTrending } from '../lib/api/api'
 import type { Movie } from "../types/movie";
+import "../styles/App.css";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../components/ui/carousel';
+import UserProfileDropdown from '../components/user/UserProfileDropdown';
 
 
 // Local client-side type for trending documents - handles both local and TMDB trending
@@ -117,7 +119,10 @@ const App = () => {
       <div className="pattern"/>
 
       <div className="wrapper">
-        <header>
+        <header className="relative">
+          <div className="absolute top-0 left-0 z-50">
+            <UserProfileDropdown align="left" />
+          </div>
           <Image src="/hero.png" alt="Hero Banner" width={1200} height={300} unoptimized />
           <h1>Find <span className="text-gradient">Movies</span> You will Enjoy Without the Hassle</h1>
 
@@ -125,10 +130,10 @@ const App = () => {
         </header>
 
         {trendingMovies.length > 0 && (
-          <section className="trending  ">
+          <section className="trending ">
             <h2>Trending Movies</h2>
 
-            <Carousel >
+            <Carousel className='bg-primary' >
               <CarouselContent className=" w-full">
                 {trendingMovies.slice(0, 10).map((movie, index) => {
                   const posterPath = movie.poster_url || movie.poster_path;

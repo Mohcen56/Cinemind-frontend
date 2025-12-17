@@ -8,4 +8,20 @@ const api = axios.create({
   },
 });
 
+// Add auth token to all requests
+api.interceptors.request.use(
+  (config) => {
+    if (typeof window !== 'undefined') {
+      const token = localStorage.getItem('authToken');
+      if (token) {
+        config.headers.Authorization = `Token ${token}`;
+      }
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export default api;
