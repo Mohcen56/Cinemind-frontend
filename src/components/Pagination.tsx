@@ -1,14 +1,41 @@
+"use client";
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+
 type PaginationProps = {
   currentPage: number;
   totalPages: number;
-  onPageChange: (page: number) => void;
+  scrollTargetId?: string;
 };
 
 export default function Pagination({
   currentPage,
   totalPages,
-  onPageChange,
+  scrollTargetId = "all-movies",
 }: PaginationProps) {
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+
+  const onPageChange = (page: number) => {
+    if (page < 1 || page > totalPages) return;
+
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("page", String(page));
+    const queryString = params.toString();
+    const nextUrl = queryString ? `${pathname}?${queryString}` : pathname;
+    const currentQuery = searchParams.toString();
+    const currentUrl = currentQuery ? `${pathname}?${currentQuery}` : pathname;
+    if (nextUrl === currentUrl) return;
+
+    router.replace(nextUrl, { scroll: false });
+
+    const target = scrollTargetId ? document.getElementById(scrollTargetId) : null;
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   const renderPageNumbers = () => {
     const pages = [];
     const maxVisible = 5;

@@ -45,7 +45,7 @@
   }
 
   header {
-    @apply sm:mt-4 mt-5;
+    @apply  mt-0 ;
   }
 
   header img {
@@ -83,7 +83,7 @@
   }
 
   .search {
-    @apply w-full bg-light-100/5 px-4 py-3 rounded-lg mt-10 max-w-3xl mx-auto;
+    @apply w-full bg-light-100/5 px-4 py-3 rounded-xl mt-4 max-w-3xl mx-auto;
 
     & div {
       @apply relative flex items-center;
