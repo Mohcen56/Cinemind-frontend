@@ -1,8 +1,8 @@
 import { GalleryVerticalEnd } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
-import { LoginForm } from "@/src/components/user/login-form"
-import "@/src/styles/App.css"
+import { LoginForm } from "@/components/user/login-form"
+import "@/styles/App.css"
 
 export default function LoginPage() {
   return (

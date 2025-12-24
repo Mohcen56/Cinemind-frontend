@@ -3,13 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import MovieCard from '@/src/components/MovieCard';
-import Spinner from '@/src/components/Spinner';
-import { getSavedMovies, fetchMovieDetail } from '@/src/lib/api/api';
-import { useAuthGate } from '@/src/hooks/useAuthGate';
-import { MovieDetail } from '@/src/types/movieDetail';
-import UserProfileDropdown from '@/src/components/user/UserProfileDropdown';
-import "@/src/styles/App.css";
+import MovieCard from '@/components/MovieCard';
+import Spinner from '@/components/Spinner';
+import { getSavedMovies, fetchMovieDetail } from '@/lib/api/api';
+import { useAuthGate } from  '@/hooks/useAuthGate'
+import { MovieDetail } from '@/types/movieDetail';
+import UserProfileDropdown from '@/components/user/UserProfileDropdown';
+import "@/styles/App.css";
 
 export default function SavedMoviesPage() {
   const [savedMovies, setSavedMovies] = useState<MovieDetail[]>([]);
@@ -77,8 +77,8 @@ export default function SavedMoviesPage() {
         <div className="pattern" />
         <div className="wrapper">
           <header className="relative">
-            <div className="absolute top-0 right-0 z-50">
-              <UserProfileDropdown align="left" />
+            <div className="absolute top-0 right-1 z-50">
+              <UserProfileDropdown  align="left" leftOffset="left-30" />
             </div>
           </header>
           <div className="flex items-center justify-center min-h-[60vh]">
@@ -102,7 +102,7 @@ export default function SavedMoviesPage() {
       <div className="pattern" />
       
       <div className="wrapper">
-        <header className="w-full py-5 md:px-10 mb-8">
+        <header className="w-full sm:py-5 px-3 md:px-10 mb-9">
           <div className="flex items-center justify-between w-full relative">
             <button
               onClick={() => router.push('/')}
@@ -120,23 +120,23 @@ export default function SavedMoviesPage() {
                   clipRule="evenodd" 
                 />
               </svg>
-              Back 
+              <span className="hidden md:inline">Back</span>
             </button>
-            <div className=" flex pl-3 md:pl-8  md:w-15 md:h-15  z-50">
-            <UserProfileDropdown  align="left" leftOffset="left-40" />
+            <div className=" flex items-center pl-4 md:pl-8  md:w-15 md:h-15  z-50">
+            <UserProfileDropdown  align="left" leftOffset="left-23 sm:left-30" />
           </div>
             <h1 className="m-0 absolute left-1/2 -translate-x-1/2 text-sm md:text-6xl">Your <span className="text-gradient text-sm md:text-6xl">Saved</span> Movies</h1>
            
             <div className="flex items-center gap-3 flex-shrink-0 ml-auto">
               
-              <p className="text-gray-400 text-lg whitespace-nowrap">
+              <p className="text-gray-400 sm:text-lg whitespace-nowrap">
                 {savedMovies.length} {savedMovies.length === 1 ? 'movie' : 'movies'} saved
               </p>
             </div>
           </div>
         </header>
 
-        <section className="all-movies max-w-7xl mx-auto w-full">
+        <section className="all-movies max-w-md sm:max-w-7xl  mx-auto w-full">
           <h2>My Collection</h2>
 
           {savedMovies.length === 0 ? (

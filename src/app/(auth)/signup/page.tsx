@@ -1,6 +1,6 @@
 import Image from "next/image"
-import "@/src/styles/App.css"
-import { SignupForm } from "@/src/components/user/signup-form"
+import "@/styles/App.css"
+import { SignupForm } from "@/components/user/signup-form"
 import Link from "next/link"
 import { GalleryVerticalEnd } from "lucide-react"
 

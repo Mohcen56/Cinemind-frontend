@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { authAPI } from '@/src/lib/api/auth';
-import { setCurrentUser } from '@/src/lib/utils/auth-utils';
-import { logger } from '@/src/lib/utils/logger';
-import type { User } from '@/src/types/User';
+import { authAPI } from '@/lib/api/auth';
+import { setCurrentUser } from '@/lib/utils/auth-utils';
+import { logger } from '@/lib/utils/logger';
+import type { User } from '@/types/User';
 
 export function useAuthGate({ redirectIfGuest }: { redirectIfGuest?: string } = {}) {
   const router = useRouter();

@@ -1,6 +1,6 @@
 import api from './axios';
-import { User } from '@/src/types/User';
-import { clearAuth } from '@/src/lib/utils/auth-utils';
+import { User } from '@/types/User';
+import { clearAuth } from '@/lib/utils/auth-utils';
 
 export const authAPI = {
   login: async (email: string, password: string) => {

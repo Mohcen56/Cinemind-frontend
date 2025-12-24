@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "@/src/lib/utils/utils"
+import { cn } from "@/lib/utils/utils"
 import { Button } from "../ui/button"
 import {
   Field,
@@ -10,9 +10,9 @@ import {
   FieldSeparator,
 } from "../ui/field"
 import { Input } from "../ui/input"
-import { useNotification } from "@/src/app/hooks/useNotification"
+import { useNotification } from "@/app/hooks/useNotification"
 import { useRouter } from "next/navigation"
-import { authAPI } from "@/src/lib/api/auth"
+import { authAPI } from "@/lib/api/auth"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 

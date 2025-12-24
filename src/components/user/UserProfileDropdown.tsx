@@ -2,7 +2,7 @@
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useAuthGate } from "@/src/hooks/useAuthGate";
+import { useAuthGate } from "@/hooks/useAuthGate";
 import { Bookmark } from "lucide-react";
 
 
@@ -122,7 +122,7 @@ export default function UserDropdown({ align = "left", leftOffset = "left-30", r
     <div className="flex z-50" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-12 h-12 sm:w-20 sm:h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
+        className="flex w-15 h-15 sm:w-20 sm:h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
         aria-label="Toggle user profile menu"
         title="Profile menu"
       >
@@ -141,7 +141,7 @@ export default function UserDropdown({ align = "left", leftOffset = "left-30", r
 
       {open && (
         <div
-          className={`absolute ${sideClass}   top-23 w-70 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
+          className={`absolute ${sideClass} top-17  sm:top-23 sm:w-70 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
         >
           <div
             className={`absolute -top-1.5 w-3 h-3 bg-white dark:bg-zinc-900 border-t border-l border-gray-200 dark:border-zinc-700 rotate-45`}

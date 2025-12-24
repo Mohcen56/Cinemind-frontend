@@ -3,14 +3,14 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Image from "next/image";
-import { fetchMovieDetail, rateMovie, toggleMovieSave, getMovieInteraction } from "@/src/lib/api/api";
-import type { MovieDetail } from "@/src/types/movieDetail";
-import Spinner from "@/src/components/Spinner";
-import CastGrid from "@/src/components/CastGrid";
-import RecommendationsCarousel from "@/src/components/RecommendationsCarousel";
+import { fetchMovieDetail, rateMovie, toggleMovieSave, getMovieInteraction } from "@/lib/api/api";
+import type { MovieDetail } from "@/types/movieDetail";
+import Spinner from "@/components/Spinner";
+import CastGrid from "@/components/CastGrid";
+import RecommendationsCarousel from "@/components/RecommendationsCarousel";
 import { Bookmark, BookmarkCheck } from "lucide-react";
-import StarRating from "@/src/components/StarRating";
-import { useAuthGate } from "@/src/hooks/useAuthGate";
+import StarRating from "@/components/StarRating";
+import { useAuthGate } from "@/hooks/useAuthGate";
 
 export default function MovieDetailPage() {
   const params = useParams();

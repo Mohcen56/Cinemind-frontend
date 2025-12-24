@@ -1,7 +1,7 @@
 "use client"
 
-import { cn } from "@/src/lib/utils/utils"
-import { Button } from  "@/src/components/ui/button"
+import { cn } from "@/lib/utils/utils"
+import { Button } from  "@/components/ui/button"
 import {
   Field,
   FieldDescription,
@@ -12,8 +12,8 @@ import { Input } from "../ui/input"
 import { useState } from "react"
 import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
-import { useNotification } from "@/src/hooks/useNotification"
-import { authAPI } from "@/src/lib/api"
+import { useNotification } from "@/hooks/useNotification"
+import { authAPI } from "@/lib/api"
 
 type SignupData = {
   email: string

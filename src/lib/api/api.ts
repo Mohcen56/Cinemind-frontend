@@ -1,5 +1,5 @@
-import { Movie } from "@/src/types/movie";
-import { MovieDetail } from "@/src/types/movieDetail";
+import { Movie } from "@/types/movie";
+import { MovieDetail } from "@/types/movieDetail";
 import api from "./axios";
 
 // TMDB proxy (Django)
