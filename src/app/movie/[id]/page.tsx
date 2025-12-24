@@ -163,7 +163,7 @@ export default async function MovieDetailPage({
                     href={`https://www.youtube.com/watch?v=${trailerVideo.key}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block px-8 py-3 bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105"
+                    className="inline-block px-8 py-3 bg-linear-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold rounded-lg transition-all duration-300 transform hover:scale-105"
                   >
                     ▶ Watch Trailer
                   </a>

@@ -1,108 +1,123 @@
 "use client";
 
-import { FormEvent, useState } from 'react'
-import { ChatBubble, ChatBubbleAvatar, ChatBubbleMessage } from '@/components/ui/ChatBubble'
+import { FormEvent, useState, useEffect } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { ChatBubble, ChatBubbleMessage } from '@/components/ui/ChatBubble'
 import { ChatMessageList } from '@/components/ui/ChatMessageList'
 import { ChatInput } from '@/components/ui/chat-input'
 import { Button } from '@/components/ui/button'
 import { Bot, Paperclip, Mic, CornerDownLeft } from 'lucide-react'
 import { ExpandableChat, ExpandableChatHeader, ExpandableChatBody, ExpandableChatFooter } from '@/components/ui/expandable-chat';
+import { useAuthGate } from '@/hooks/useAuthGate';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
+import { sendChatMessage } from '@/lib/api/api';
+import { useChatContext } from '@/providers/ChatProvider';
+
+type Recommendation = { id: number; title: string; poster_path?: string | null; overview?: string };
 
 export function MovieAssistantChat() {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      content: "Hello! How can I help you today?",
-      sender: "ai" as const,
-    },
-    {
-      id: 2,
-      content: "I have a question about the component library.",
-      sender: "user" as const,
-    },
-    {
-      id: 3,
-      content: "Sure! I'd be happy to help. What would you like to know?",
-      sender: "ai" as const,
-    },
-  ]);
+  const { user } = useAuthGate();
+  const { messages, setMessages } = useChatContext();
   const [input, setInput] = useState("");
   const [isChatLoading, setIsChatLoading] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
-  const handleSubmit = (e: FormEvent) => {
+  // Ensure hydration is complete before rendering
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
 
+    const userMessage = input;
     setMessages((prev) => [
       ...prev,
-      {
-        id: prev.length + 1,
-        content: input,
-        sender: "user" as const,
-      },
+      { id: prev.length + 1, content: userMessage, sender: 'user' },
     ]);
     setInput("");
     setIsChatLoading(true);
 
-    // Simulated AI response; replace with actual API call
-    setTimeout(() => {
+    try {
+      const response = await sendChatMessage(userMessage);
+      const aiText = response?.response_text ?? "Sorry, I couldn't generate a reply.";
+      const recs: Recommendation[] = Array.isArray(response?.movies) ? response.movies : [];
       setMessages((prev) => [
         ...prev,
-        {
-          id: prev.length + 1,
-          content: "This is an AI response to your message.",
-          sender: "ai" as const,
-        },
+        { id: prev.length + 1, content: aiText, sender: 'ai', movies: recs },
       ]);
+    } catch (err) {
+      console.warn("Chat request failed", err);
+      setMessages((prev) => [
+        ...prev,
+        { id: prev.length + 1, content: "Something went wrong reaching the assistant. Please try again.", sender: 'ai' },
+      ]);
+    } finally {
       setIsChatLoading(false);
-    }, 1000);
+    }
   };
 
   return (
     <div className="h-[600px] relative">
-      <ExpandableChat
-        size="lg"
-        position="bottom-right"
-        icon={<Bot className="h-6 w-6" />}
-      >
-        <ExpandableChatHeader className="flex-col text-center justify-center">
-          <h1 className="text-xl font-semibold">Chat with AI ✨</h1>
-          <p className="text-sm text-muted-foreground">
-            Ask me anything about movies
-          </p>
+      <ExpandableChat size="xl" position="bottom-right" icon={<Bot className="h-6 w-6" />}> 
+        <ExpandableChatHeader className="flex-col p-4 text-center justify-center">
+          <Bot className="h-10 w-10 text-white" />Cinmind ai
         </ExpandableChatHeader>
 
         <ExpandableChatBody>
           <ChatMessageList>
-            {messages.map((message) => (
-              <ChatBubble
-                key={message.id}
-                variant={message.sender === "user" ? "sent" : "received"}
-              >
-                <ChatBubbleAvatar
-                  className="h-8 w-8 shrink-0"
-                  src={
-                    message.sender === "user"
-                      ? "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=64&h=64&q=80&crop=faces&fit=crop"
-                      : "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&q=80&crop=faces&fit=crop"
-                  }
-                  fallback={message.sender === "user" ? "US" : "AI"}
-                />
-                <ChatBubbleMessage
-                  variant={message.sender === "user" ? "sent" : "received"}
-                >
-                  {message.content}
-                </ChatBubbleMessage>
+            {isHydrated && messages.map((message) => (
+              <ChatBubble key={message.id} variant={message.sender === 'user' ? 'sent' : 'received'}>
+                {message.sender === 'user' ? (
+                  <Avatar className="h-8 w-8 shrink-0">
+                    <AvatarImage src={user?.avatar || "/icons/ayano.jpg"} alt={user?.username || "User"} />
+                    <AvatarFallback>{user?.username?.[0]?.toUpperCase() || 'U'}</AvatarFallback>
+                  </Avatar>
+                ) : (
+                  <div className="h-8 w-8 shrink-0 rounded-full bg-purple-600 flex items-center justify-center">
+                    <Bot className="h-5 w-5 text-white" />
+                  </div>
+                )}
+                
+                <div className="flex flex-col ">
+                  <ChatBubbleMessage variant={message.sender === 'user' ? 'sent' : 'received'}>
+                    {message.content}
+                  </ChatBubbleMessage>
+
+                  {message.sender === 'ai' && message.movies && message.movies.length > 0 && (
+                    <div className="mt-3 grid grid-cols-3 gap-2 ml-0">
+                      {message.movies.slice(0, 6).map((m) => (
+                        <Link key={m.id} href={`/movie/${m.id}`} className="group">
+                          <div className="overflow-hidden rounded-lg border border-white/10 bg-black/30">
+                            {m.poster_path ? (
+                              <Image
+                                src={`https://image.tmdb.org/t/p/w342${m.poster_path}`}
+                                alt={m.title}
+                                width={120}
+                                height={180}
+                                className="w-full h-32 object-cover group-hover:opacity-90 transition-opacity"
+                                loading="lazy"
+                              />
+                            ) : (
+                              <div className="w-full h-32 flex items-center justify-center text-xs text-muted-foreground bg-slate-700">No poster</div>
+                            )}
+                            <div className="p-1 text-xs text-white/90 truncate text-center">{m.title}</div>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
               </ChatBubble>
             ))}
 
             {isChatLoading && (
               <ChatBubble variant="received">
-                <ChatBubbleAvatar
-                  className="h-8 w-8 shrink-0"
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=64&h=64&q=80&crop=faces&fit=crop"
-                  fallback="AI"
-                />
+                <div className="h-8 w-8 shrink-0 rounded-full bg-purple-600 flex items-center justify-center">
+                  <Bot className="h-5 w-5 text-white" />
+                </div>
                 <ChatBubbleMessage isLoading />
               </ChatBubble>
             )}
@@ -110,35 +125,27 @@ export function MovieAssistantChat() {
         </ExpandableChatBody>
 
         <ExpandableChatFooter>
-          <form
-            onSubmit={handleSubmit}
-            className="relative rounded-lg border bg-background focus-within:ring-1 focus-within:ring-ring p-1"
-          >
+          <form onSubmit={handleSubmit} className="flex items-center gap-3 rounded-lg bg-background p-2">
             <ChatInput
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
-              className="min-h-12 resize-none rounded-lg bg-background border-0 p-3 shadow-none focus-visible:ring-0"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                  e.preventDefault();
+                  handleSubmit(e as unknown as FormEvent);
+                }
+              }}
+              className="min-h-12 flex-1 resize-none rounded-lg bg-background border-0 px-3 py-2 shadow-none focus-visible:ring-0"
             />
-            <div className="flex items-center p-3 pt-0 justify-between">
-              <div className="flex">
-                <button
-                  type="button"
-                  className="p-2 text-muted-foreground hover:text-foreground"
-                  onClick={() => {}}
-                >
-                  <Paperclip className="h-4 w-4" />
-                </button>
-
-                <button
-                  type="button"
-                  className="p-2 text-muted-foreground hover:text-foreground"
-                  onClick={() => {}}
-                >
-                  <Mic className="h-4 w-4" />
-                </button>
-              </div>
-              <Button type="submit" size="sm" className="ml-auto gap-1.5">
+            <div className="flex items-center gap-2">
+              <button type="button" className="p-2 text-muted-foreground hover:text-foreground" aria-label="Attach file" title="Attach file" onClick={() => {}}>
+                <Paperclip className="h-4 w-4" />
+              </button>
+              <button type="button" className="p-2 text-muted-foreground hover:text-foreground" aria-label="Voice input" title="Voice input" onClick={() => {}}>
+                <Mic className="h-4 w-4" />
+              </button>
+              <Button type="submit" size="sm" className="ml-auto hover:scale-105 gap-1.5">
                 Send Message
                 <CornerDownLeft className="h-3.5 w-3.5" />
               </Button>
@@ -147,5 +154,5 @@ export function MovieAssistantChat() {
         </ExpandableChatFooter>
       </ExpandableChat>
     </div>
-  )
+  );
 }

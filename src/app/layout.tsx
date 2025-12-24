@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 import "../styles/globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
+import { ChatProvider } from "@/providers/ChatProvider";
+import { MovieAssistantChat } from "@/components/movies/MovieAssistantChat";
 
 export const metadata: Metadata = {
   title: "Cinemind",
@@ -28,9 +30,12 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-         <QueryProvider>
-          {children}
-         </QueryProvider>
+         <ChatProvider>
+           <QueryProvider>
+            {children}
+           </QueryProvider>
+           <MovieAssistantChat />
+         </ChatProvider>
       </body>
     </html>
   );

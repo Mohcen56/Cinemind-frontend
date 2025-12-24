@@ -21,17 +21,19 @@ export function TrendingCarousel({ movies }: { movies: TrendingDoc[] }) {
 
             return (
               <CarouselItem key={movieId} className="basis-auto">
-                <li className="min-w-[230px] flex flex-row items-center">
-                  <p className="fancy-text mt-[22px] text-nowrap">{index + 1}</p>
-                  <Image 
-                    src={posterSrc} 
-                    alt={movie.title || 'Movie'} 
-                    width={127} 
-                    height={163} 
-                    className="w-[127px] h-[163px] rounded-lg object-cover -ml-3.5"
-                    unoptimized
-                  />
-                </li>
+                <ul>
+                  <li className="min-w-[230px] flex flex-row items-center">
+                    <p className="fancy-text mt-[22px] text-nowrap">{index + 1}</p>
+                    <Image 
+                      src={posterSrc} 
+                      alt={movie.title || 'Movie'} 
+                      width={127} 
+                      height={163} 
+                      className="w-[127px] h-[163px] rounded-lg object-cover -ml-3.5"
+                      unoptimized
+                    />
+                  </li>
+                </ul>
               </CarouselItem>
             );
           })}

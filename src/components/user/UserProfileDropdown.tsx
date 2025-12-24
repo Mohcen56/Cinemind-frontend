@@ -1,9 +1,9 @@
 "use client";
 import React, { useEffect, useRef, useState, useMemo } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuthGate } from "@/hooks/useAuthGate";
 import { Bookmark } from "lucide-react";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 
 
 
@@ -80,25 +80,19 @@ export default function UserDropdown({ align = "left", leftOffset = "left-30", r
       <div className="flex z-50" ref={ref}>
         <button
           onClick={() => setOpen((v) => !v)}
-          className="flex w-10 h-10 sm:w-20 sm:h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
+          className="flex w-10 h-10 sm:w-20 sm:h-20 rounded-full hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
           aria-label="Toggle user menu"
           title="User menu"
         >
-          <Image
-            src="/icons/ayano.jpg"
-            alt="Guest"
-            width={80}
-            height={80}
-            className="object-cover w-full h-full"
-            onError={(e) =>
-              ((e.target as HTMLImageElement).src = "/icons/ayano.jpg")
-            }
-          />
+          <Avatar className="w-full h-full">
+            <AvatarImage src="/icons/ayano.jpg" alt="Guest" />
+            <AvatarFallback>G</AvatarFallback>
+          </Avatar>
         </button>
 
         {open && (
           <div
-            className={`absolute ${sideClass} top-23 w-40 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
+            className={`absolute ${sideClass} top-23 w-40 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-9999 p-2`}
           >
             <div
               className={`absolute -top-1.5 w-3 h-3 bg-white dark:bg-zinc-900 border-t border-l border-gray-200 dark:border-zinc-700 rotate-45`}
@@ -122,26 +116,19 @@ export default function UserDropdown({ align = "left", leftOffset = "left-30", r
     <div className="flex z-50" ref={ref}>
       <button
         onClick={() => setOpen((v) => !v)}
-        className="flex w-15 h-15 sm:w-20 sm:h-20 rounded-full overflow-hidden hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
+        className="flex w-15 h-15 sm:w-20 sm:h-20 rounded-full hover:ring-2 hover:ring-offset-2 hover:ring-primary transition-all"
         aria-label="Toggle user profile menu"
         title="Profile menu"
       >
-        <Image
-          src={avatarSrc}
-          alt="Profile"
-          width={80}
-          height={80}
-          className="object-cover w-full h-full"
-          unoptimized={avatarSrc.includes('localhost')}
-          onError={(e) =>
-            ((e.target as HTMLImageElement).src = "/icons/ayano.jpg")
-          }
-        />
+        <Avatar className="w-full h-full">
+          <AvatarImage src={avatarSrc} alt="Profile" />
+          <AvatarFallback>{user?.username?.[0]?.toUpperCase() || 'U'}</AvatarFallback>
+        </Avatar>
       </button>
 
       {open && (
         <div
-          className={`absolute ${sideClass} top-17  sm:top-23 sm:w-70 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-[9999] p-2`}
+          className={`absolute ${sideClass} top-17  sm:top-23 sm:w-70 bg-white dark:bg-zinc-900 rounded-xl shadow-xl border border-gray-200 dark:border-zinc-700 z-9999 p-2`}
         >
           <div
             className={`absolute -top-1.5 w-3 h-3 bg-white dark:bg-zinc-900 border-t border-l border-gray-200 dark:border-zinc-700 rotate-45`}
@@ -151,20 +138,10 @@ export default function UserDropdown({ align = "left", leftOffset = "left-30", r
           {user && (
             <div className="px-1 border-b border-zinc-200 dark:border-zinc-700">
               <div className="flex items-center space-x-3 mb-2">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center text-white font-semibold">
-                  <Image
-                    src={avatarSrc}
-                    alt="Profile"
-                    width={80}
-                    height={80}
-                    className="object-cover w-full h-full rounded-full"
-                    unoptimized={avatarSrc.includes('localhost')}
-                    onError={(e) =>
-                      ((e.target as HTMLImageElement).src =
-                        "/icons/ayano.jpg")
-                    }
-                  />
-                </div>
+                <Avatar className="w-12 h-12">
+                  <AvatarImage src={avatarSrc} alt="Profile" />
+                  <AvatarFallback>{user.username?.[0]?.toUpperCase() || 'U'}</AvatarFallback>
+                </Avatar>
                 <div>
                   <div className="text-sm font-semibold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
                     {user.username}

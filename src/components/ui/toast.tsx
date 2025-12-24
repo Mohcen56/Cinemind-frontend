@@ -142,10 +142,10 @@ const Notification: React.FC<NotificationProps> = ({ type, title, message, showI
       transition={{ duration: 0.3 }}
       className={`relative w-full max-w-sm rounded-xl p-4 backdrop-blur-xl bg-white/15 dark:bg-black/15 border border-gray-300/60 dark:border-gray-700/60 overflow-hidden ring-1 ring-gray-200/40 dark:ring-gray-700/40 drop-shadow-xl transition-all duration-300 ease-in-out transform hover:scale-105`}
     >
-        <div className={`absolute top-0 left-0 h-full w-full bg-gradient-to-br ${config.gradient} opacity-50`}></div>
+        <div className={`absolute top-0 left-0 h-full w-full bg-linear-to-br ${config.gradient} opacity-50`}></div>
         <div className="relative z-10 flex items-center space-x-4">
             {showIcon && (
-                <div className={`flex-shrink-0 ${config.iconColor}`}>
+                <div className={`shrink-0 ${config.iconColor}`}>
             <config.IconComponent className="h-6 w-6" />
                 </div>
             )}
@@ -157,7 +157,7 @@ const Notification: React.FC<NotificationProps> = ({ type, title, message, showI
             </div>
             <button 
               onClick={handleClose} 
-              className="flex-shrink-0 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="shrink-0 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 transition-colors p-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
               aria-label="Close notification"
             >
                 <CloseIcon className="h-5 w-5" />
@@ -169,7 +169,7 @@ const Notification: React.FC<NotificationProps> = ({ type, title, message, showI
                     initial={{ width: '100%' }}
                     animate={{ width: 0 }}
                     transition={{ duration: duration / 1000, ease: "linear" }}
-                    className={`h-full bg-gradient-to-r from-green-400 via-blue-400 to-sky-400 dark:from-green-500 dark:via-blue-500 dark:to-sky-500`}
+                    className={`h-full bg-linear-to-r from-green-400 via-blue-400 to-sky-400 dark:from-green-500 dark:via-blue-500 dark:to-sky-500`}
                 ></motion.div>
             </div>
         )}

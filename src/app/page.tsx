@@ -3,7 +3,6 @@ import Search from "@/components/movies/Search";
 import MovieCard from "@/components/movies/MovieCard";
 import { TrendingCarousel } from "@/components/movies/TrendingCarousel";
 import Pagination from "@/components/Pagination";
-import { MovieAssistantChat } from "@/components/movies/MovieAssistantChat";
 import UserProfileDropdown from "@/components/user/UserProfileDropdown";
 import type { Movie, TrendingDoc } from "@/types/movie";
 import "../styles/App.css";
@@ -128,8 +127,6 @@ export default async function Home({
           )}
         </section>
       </div>
-
-      <MovieAssistantChat />
     </main>
   );
 }

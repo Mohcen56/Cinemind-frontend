@@ -51,3 +51,9 @@ export async function getSavedMovies() {
   return res.data;
 }
 
+// AI chat
+export async function sendChatMessage(message: string) {
+  const res = await api.post('chat/', { message });
+  return res.data as { response_text: string; movies?: any[] };
+}
+

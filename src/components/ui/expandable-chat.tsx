@@ -10,11 +10,12 @@ export type ChatSize = "sm" | "md" | "lg" | "xl" | "full";
 
 const chatConfig = {
   dimensions: {
-    sm: "sm:max-w-sm sm:max-h-[500px]",
-    md: "sm:max-w-md sm:max-h-[600px]",
-    lg: "sm:max-w-lg sm:max-h-[700px]",
-    xl: "sm:max-w-xl sm:max-h-[800px]",
-    full: "sm:w-full sm:h-full",
+    // Use explicit widths to avoid wrapping and narrow layouts
+    sm: "sm:w-[420px] sm:h-[500px]",
+    md: "sm:w-[560px] sm:h-[600px]",
+    lg: "sm:w-[720px] sm:h-[700px]",
+    xl: "sm:w-[960px] sm:h-[580px]",
+    full: "sm:w-[95vw] sm:h-[600px]",
   },
   positions: {
     "bottom-right": "bottom-5 right-5",
@@ -58,7 +59,7 @@ const ExpandableChat: React.FC<ExpandableChatProps> = ({
       <div
         ref={chatRef}
         className={cn(
-          "flex flex-col bg-background/95 supports-[backdrop-filter]:backdrop-blur-xl border border-border sm:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out sm:absolute sm:w-[90vw] sm:h-[80vh] fixed inset-0 w-full h-full sm:inset-auto",
+          "flex flex-col bg-linear-to-b from-indigo-950/90 to-slate-900/90 supports-backdrop-filter:backdrop-blur-xl border border-white/10 sm:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-out sm:absolute fixed inset-0 w-full h-full sm:inset-auto",
           chatConfig.chatPositions[position],
           chatConfig.dimensions[size],
           isOpen ? chatConfig.states.open : chatConfig.states.closed,
@@ -91,7 +92,7 @@ const ExpandableChatHeader: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   ...props
 }) => (
   <div
-    className={cn("flex items-center justify-between p-4 border-b", className)}
+    className={cn("flex items-center justify-between p-2 border-b", className)}
     {...props}
   />
 );
@@ -101,14 +102,14 @@ ExpandableChatHeader.displayName = "ExpandableChatHeader";
 const ExpandableChatBody: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...props
-}) => <div className={cn("flex-grow overflow-y-auto", className)} {...props} />;
+}) => <div className={cn("grow overflow-y-auto px-4 pb-4", className)} {...props} />;
 
 ExpandableChatBody.displayName = "ExpandableChatBody";
 
 const ExpandableChatFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...props
-}) => <div className={cn("border-t p-4", className)} {...props} />;
+}) => <div className={cn("border-t ", className)} {...props} />;
 
 ExpandableChatFooter.displayName = "ExpandableChatFooter";
 
