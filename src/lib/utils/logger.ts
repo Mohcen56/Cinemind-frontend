@@ -11,4 +11,7 @@ export const logger = {
   warn: (...args: any[]) => {
     console.warn(...args);
   },
+  exception: (err: any, context?: Record<string, any>) => {
+    console.error('[Exception]', err, context);
+  },
 };
