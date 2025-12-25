@@ -4,6 +4,8 @@ import { clearAuth } from '@/lib/utils/auth-utils';
 
 
 
+
+
 export const authAPI = {
   login: async (email: string, password: string) => {
     try {
@@ -155,4 +157,3 @@ export const authAPI = {
     }
   },
 };
-export type { User };
