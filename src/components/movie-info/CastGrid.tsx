@@ -22,11 +22,7 @@ type CastGridProps = {
 export default function CastGrid({ cast, maxItems = 12 }: CastGridProps) {
   const displayCast = cast.slice(0, maxItems);
 
-  console.log("CastGrid - cast:", cast);
-  console.log("CastGrid - displayCast:", displayCast);
-
   if (displayCast.length === 0) {
-    console.log("No cast to display");
     return null;
   }
 

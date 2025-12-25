@@ -12,6 +12,7 @@ import { ExpandableChat, ExpandableChatHeader, ExpandableChatBody, ExpandableCha
 import { useAuthGate } from '@/hooks/useAuthGate';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { sendChatMessage } from '@/lib/api/api';
+import { sanitizeChatText } from '@/lib/utils/text';
 import { useChatContext } from '@/providers/ChatProvider';
 
 type Recommendation = { id: number; title: string; poster_path?: string | null; overview?: string };
@@ -42,7 +43,12 @@ export function MovieAssistantChat() {
 
     try {
       const response = await sendChatMessage(userMessage);
-      const aiText = response?.response_text ?? "Sorry, I couldn't generate a reply.";
+      let aiText = sanitizeChatText(response?.response_text ?? "", userMessage);
+      if (!aiText || aiText.length < 2) {
+        // Fallback based on intent
+        const intentSaved = /saved|watchlist|later/i.test(userMessage);
+        aiText = intentSaved ? "Here are picks from your saved list." : "Here are some recommendations you might enjoy.";
+      }
       const recs: Recommendation[] = Array.isArray(response?.movies) ? response.movies : [];
       setMessages((prev) => [
         ...prev,

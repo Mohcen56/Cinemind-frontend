@@ -18,9 +18,7 @@ const nextConfig: NextConfig = {
     dangerouslyAllowSVG: true,
     unoptimized: process.env.NODE_ENV === 'development',
   },
-  experimental: {
-    allowedOrigins: ['localhost:8000'],
-  },
+
 };
 
 export default nextConfig;
