@@ -98,7 +98,7 @@ export default async function Home({
         </header>
 
         {trendingMovies.length > 0 && (
-          <section className="trending w-7xl mx-auto mb-6">
+          <section className="trending w-7xl mx-auto mb-3">
            
             <TrendingCarousel movies={trendingMovies.slice(0, 10)} />
           </section>

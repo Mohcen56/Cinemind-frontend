@@ -66,7 +66,6 @@ export function MovieAssistantChat() {
   };
 
   return (
-    <div className="h-[600px] relative">
       <ExpandableChat size="xl" position="bottom-right" icon={<Bot className="h-6 w-6" />}> 
         <ExpandableChatHeader className="flex-col p-4 text-center justify-center">
           <Bot className="h-10 w-10 text-white" />Cinmind ai
@@ -159,6 +158,5 @@ export function MovieAssistantChat() {
           </form>
         </ExpandableChatFooter>
       </ExpandableChat>
-    </div>
   );
 }
