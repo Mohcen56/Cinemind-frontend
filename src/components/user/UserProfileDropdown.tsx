@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useAuthGate } from "@/hooks/useAuthGate";
 import { Bookmark } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { useNotification } from "@/app/hooks/useNotification";
 
 
 
@@ -43,7 +44,7 @@ const Icon = {
 
 export default function UserDropdown({ align = "left", leftOffset = "left-30", rightOffset = "right-0" }: { align?: "left" | "right"; leftOffset?: string; rightOffset?: string }) {
   const { user, isLoading, logout } = useAuthGate();
- 
+  const notify = useNotification()
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
@@ -161,24 +162,25 @@ export default function UserDropdown({ align = "left", leftOffset = "left-30", r
           <div className="py-1">
            
               
+          {/* Menu
                 <MenuItem
                   icon={<Icon.User />}
                   text="Your Profile"
                   onClick={() => router.push("/profile")}
                 />
-            
+            */}
             <MenuItem
                   icon={<Bookmark className="w-4 h-7"/>}
                   text="Saved Movies"
                   onClick={() => router.push("/saved")}
                 />
 
-            <MenuItem
+           {/* Menu  <MenuItem
                   icon={<Icon.Settings />}
                   text="Settings"
                   onClick={() => router.push("/settings")}
                 />
-
+*/}
                 <div className="my-2 h-px bg-zinc-200 dark:bg-zinc-700" />
                 <MenuItem
                   icon={<Icon.LogOut />}
@@ -187,6 +189,7 @@ export default function UserDropdown({ align = "left", leftOffset = "left-30", r
                   onClick={() => {
                     logout();
                     router.push("/login");
+                    notify.info('Logged out')
                   }}
                 />
              

@@ -1,117 +1,109 @@
 <div align="center">
   <br />
   
-  <h1>🎬 CineMind AI </h1>
+  <h1>🎬 CineMind AI</h1>
   
   <div>
-    <img src="https://img.shields.io/badge/-Next_JS-black?style=for-the-badge&logoColor=white&logo=next.js&color=000000" alt="next.js" />
-    <img src="https://img.shields.io/badge/-Django-black?style=for-the-badge&logoColor=white&logo=django&color=092E20" alt="django" />
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
+    <img src="https://img.shields.io/badge/-Next.js_16-black?style=for-the-badge&logoColor=white&logo=next.js&color=000000" alt="next.js" />
+    <img src="https://img.shields.io/badge/-Django_5.1-black?style=for-the-badge&logoColor=white&logo=django&color=092E20" alt="django" />
     <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
+    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
+    <img src="https://img.shields.io/badge/-React_Query-black?style=for-the-badge&logoColor=white&logo=react&color=FF4154" alt="react-query" />
   </div>
 
-  <h3 align="center">A Modern Movie Discovery Platform</h3>
+  <h3 align="center">Intelligent Movie Discovery Platform with AI-Powered Recommendations</h3>
 
 </div>
 
-## 📋 <a name="table">Table of Contents</a>
+## 📋 Table of Contents
 
-1. 🤖 [Introduction](#introduction)
-2. ⚙️ [Tech Stack](#tech-stack)
-3. 🔋 [Features](#features)
-4. 🤸 [Quick Start](#quick-start)
+1. [Introduction](#introduction)
+2. [Core Tech Stack](#core-tech-stack)
+3. [Architecture](#architecture)
+4. [Key Features](#key-features)
+5. [Getting Started](#getting-started)
 
-## <a name="introduction">🤖 Introduction</a>
+## Introduction
 
-CineMind is a full-stack movie discovery platform built with Next.js 16 for the frontend and Django for the backend. Users can browse trending movies, search for titles, explore detailed movie information including cast and recommendations, all powered by the TMDB API. The application features a responsive design with a modern UI and tracks trending searches to surface popular content.
+**CineMind AI** is a full-stack movie discovery platform that combines modern web technologies with AI intelligence. The application uses LLM APIs (Groq, GitHub Models) and the TMDB API to deliver intelligent movie recommendations based on user preferences, while providing a responsive, type-safe user experience with Next.js and Django.
 
-## <a name="tech-stack">⚙️ Tech Stack</a>
+## Core Tech Stack
 
-### Frontend
-- **[Next.js 16](https://nextjs.org/)** - React framework with server-side rendering, routing, and optimized builds using Turbopack
-- **[TypeScript](https://www.typescriptlang.org/)** - Type-safe JavaScript for better developer experience and code quality
-- **[Tailwind CSS](https://tailwindcss.com/)** - Utility-first CSS framework for rapid UI development
-- **[shadcn/ui](https://ui.shadcn.com/)** - Re-usable component library built with Radix UI and Tailwind CSS
-- **[Axios](https://axios-http.com/)** - Promise-based HTTP client for API requests
-- **[React-use](https://github.com/streamich/react-use)** - Collection of essential React hooks including debouncing
+### Frontend Architecture
+| Category | Technologies |
+|----------|---|
+| **Framework** | Next.js  (Turbopack), React  with TypeScript |
+| **State Management** | TanStack React Query  |
+| **UI Components** | shadcn/ui (Radix UI), Material-UI, Lucide Icons |
+| **Styling** | Tailwind CSS , Framer Motion |
+| **HTTP Client** | Axios with custom interceptors |
+| **Utilities** | React-use hooks, Class Variance Authority |
 
-### Backend
-- **[Django 5.1](https://www.djangoproject.com/)** - High-level Python web framework for rapid development
-- **[Django REST Framework](https://www.django-rest-framework.org/)** - Powerful toolkit for building Web APIs
-- **[Django CORS Headers](https://github.com/adamchainz/django-cors-headers)** - Handles Cross-Origin Resource Sharing
-- **[Python-decouple](https://github.com/HBNetwork/python-decouple)** - Environment variable management
-- **[SQLite](https://www.sqlite.org/)** - Lightweight database for development (easily replaceable with PostgreSQL/MySQL for production)
+### Backend Architecture
+| Category | Technologies |
+|----------|---|
+| **Framework** | Django , Django REST Framework |
+| **Database** | SQLite (dev), PostgreSQL-ready |
+| **AI/LLM Providers** | Groq API, GitHub Models (OpenAI-compatible), Google Generative AI |
+| **External APIs** | TMDB API |
+| **Middleware** | Django CORS Headers, WhiteNoise, Gunicorn |
+| **Config Management** | Python-decouple |
 
-### APIs
-- **[TMDB API](https://www.themoviedb.org/documentation/api)** - The Movie Database API for movie data, posters, cast information, and recommendations
+### APIs & Integrations
+- **TMDB API**: Movie data, cast information, recommendations, trending content
+- **Groq LLM**: Fast inference for AI recommendations (Llama 3.1)
+- **GitHub Models API**: OpenAI-compatible GPT-4o integration
+- **Google Generative AI**: Alternative LLM provider
 
+## Architecture
 
-## <a name="features">🔋 Features</a>
+### Frontend Components
+- **Reusable UI Components**: Custom buttons, cards, carousels, chat bubbles, expandable chat
+- **Custom Hooks**: `useAuthGate`, `useNotification`, `useSavedMovies`, `use-auto-scroll`
+- **Smart Pages**: Authentication routes, movie details with cast, recommendations, saved movies list
+- **React Query Integration**: Server state management with devtools for debugging
 
-👉 **Movie Search**: Real-time search with debouncing for smooth user experience
-
-👉 **Trending Movies**: Algorithm-based trending section that tracks popular searches and displays numbered rankings
-
-👉 **Movie Details**: Comprehensive movie information including ratings, release dates, runtime, and overviews
-
-👉 **Cast Display**: Horizontal carousel showcasing movie cast members with profile images
-
-👉 **Recommendations**: AI-powered movie recommendations carousel based on the current movie
-
-👉 **Pagination**: Efficient navigation through large movie collections
-
-👉 **Responsive Design**: Fully responsive layout that adapts to all screen sizes
-
-👉 **Modern UI/UX**: Clean interface with custom carousels, hover effects, and smooth transitions
-
-👉 **Backend API**: Django REST API with trending search tracking and TMDB integration
-
-👉 **Type Safety**: Full TypeScript implementation for better code reliability
-
-## <a name="quick-start">🤸 Quick Start</a>
-
-Follow these steps to set up the project locally on your machine.
-
-**Prerequisites**
-
-Make sure you have the following installed on your machine:
-
-- [Git](https://git-scm.com/)
-- [Node.js](https://nodejs.org/en)
-- [npm](https://www.npmjs.com/) (Node Package Manager)
-
-**Cloning the Repository**
-
-```bash
-git clone 
-cd react-movies
-
+### Backend Services
+```
+core/services/
+  ├── ai_engine.py       → Weighted user profile analysis & preference scoring
+  ├── llm_providers.py   → Multi-LLM provider abstraction (Groq, GitHub, Google)
+  ├── tmdb.py           → TMDB API wrapper with caching
+  └── search.py         → Trending search aggregation
 ```
 
-**Installation**
+## Key Features
 
-Install the project dependencies using npm:
+✨ **AI-Powered Recommendations**
+- Weighted user profile analysis (loved, saved, liked, hated movies)
+- Multi-LLM support with fallback mechanisms
+- Context-aware movie suggestions based on interaction history
 
-```bash
-npm install
-```
+🔍 **Smart Search & Discovery**
+- Real-time search with debouncing (React-use)
+- Trending movies with algorithm-based ranking
+- Trending search tracking and analytics
 
-**Set Up Environment Variables**
+🎬 **Rich Movie Information**
+- Comprehensive details: ratings, runtime, release dates, overviews
+- Cast carousels with profile images
+- Movie recommendations carousel per title
+- Pagination for large datasets
 
-Create a new file named `.env.local` in the root of your project and add the following content:
+💾 **User Interactions**
+- Save movies to personal watchlist
+- Star rating system (1-5 scale)
+- Movie interaction tracking with weighted preferences
+- User avatar support
 
-```env
-NEXT_PUBLIC_API_BASE_URL=your backend-url
-```
+🎨 **Modern UI/UX**
+- Responsive design (mobile-first)
+- Smooth animations (Framer Motion)
+- Custom carousels (Embla Carousel)
+- Dark/Light theme support
+- Type-safe components (TypeScript)
 
 
-**Running the Project**
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000] in your browser to view the project.
 
 
 

@@ -6,6 +6,8 @@ import StarRating from "@/components/movie-info/StarRating";
 import { toggleMovieSave, rateMovie, getMovieInteraction } from "@/lib/api/api";
 import { useAuthGate } from "@/hooks/useAuthGate";
 import { useQueryClient } from "@tanstack/react-query";
+import { useNotification } from "@/app/hooks/useNotification";
+
 
 interface Props {
   movieId: number;
@@ -16,6 +18,7 @@ interface Props {
 export default function MovieInteractions({ movieId, initialIsSaved, initialRating }: Props) {
   const [isSaved, setIsSaved] = useState(initialIsSaved);
   const [rating, setRating] = useState(initialRating);
+  const notify = useNotification()
   const { user } = useAuthGate();
   const queryClient = useQueryClient();
 
@@ -43,11 +46,12 @@ export default function MovieInteractions({ movieId, initialIsSaved, initialRati
     try {
       const response = await toggleMovieSave(movieId);
       setIsSaved(response.is_saved);
+      notify.success('Movie saved successfully', 'Your movie has been saved!', 2000)
       // Invalidate saved movies cache to update the list immediately
       queryClient.invalidateQueries({ queryKey: ['savedMovies'] });
     } catch (err) {
       console.error("Error toggling save:", err);
-      alert("Please login to save movies");
+      notify.error('Error', 'Please login to save movies', 2000)
     }
   };
 
@@ -55,9 +59,10 @@ export default function MovieInteractions({ movieId, initialIsSaved, initialRati
     try {
       await rateMovie(movieId, newRating);
       setRating(newRating);
+      notify.success('Rating submitted', `You rated this movie ${newRating} stars`, 2000)
     } catch (err) {
       console.error("Error rating movie:", err);
-      alert("Please login to rate movies");
+      notify.error('Error', 'Please login to rate movies', 2000)
     }
   };
 

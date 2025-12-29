@@ -45,7 +45,7 @@ export function SignupForm({
       if (response?.success && response.token && response.user) {
         localStorage.setItem("authToken", response.token)
         localStorage.setItem("user", JSON.stringify(response.user))
-        notify.accountVerified()
+        notify.success("Account created successfully", "Welcome!", 2000)
         router.push("/")
       } else {
         const errorMsg = response?.error || "Signup failed"

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "../styles/globals.css";
 import { QueryProvider } from "@/providers/QueryProvider";
 import { ChatProvider } from "@/providers/ChatProvider";
+import { NotificationProvider } from "@/providers/NotificationProvider";
 import { MovieAssistantChat } from "@/components/movies/MovieAssistantChat";
 
 export const metadata: Metadata = {
@@ -30,12 +31,14 @@ export default function RootLayout({
         />
       </head>
       <body suppressHydrationWarning>
-         <ChatProvider>
-           <QueryProvider>
-            {children}
-           </QueryProvider>
-           <MovieAssistantChat />
-         </ChatProvider>
+        <NotificationProvider>
+          <ChatProvider>
+            <QueryProvider>
+              {children}
+            </QueryProvider>
+            <MovieAssistantChat />
+          </ChatProvider>
+        </NotificationProvider>
       </body>
     </html>
   );
