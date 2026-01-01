@@ -55,6 +55,18 @@
 - **GitHub Models API**: OpenAI-compatible GPT-4o integration
 - **Google Generative AI**: Alternative LLM provider
 
+## 🛠️ Skills Demonstrated
+
+**Frontend Development**: React · Next.js · TypeScript · TanStack Query · Tailwind CSS · Responsive Design · Component Architecture · Custom Hooks · API Integration · State Management
+
+**Backend Development**: Django · Django REST Framework · RESTful API Design · Database Modeling · Authentication & Authorization · Middleware · CORS Configuration · Environment Management
+
+**AI/ML Engineering**: RAG (Retrieval-Augmented Generation) · LLM Integration · Multi-provider Routing · Prompt Engineering · Context Window Optimization · Intent Classification
+
+**Full-Stack Integration**: API Design & Consumption · JWT Authentication · Real-time Search · Data Caching · Error Handling · Performance Optimization
+
+**DevOps & Tools**: Git · Environment Variables · API Security · Deployment Configuration · Database Migration
+
 ## Architecture
 
 ### Frontend Components
@@ -66,18 +78,44 @@
 ### Backend Services
 ```
 core/services/
-  ├── ai_engine.py       → Weighted user profile analysis & preference scoring
-  ├── llm_providers.py   → Multi-LLM provider abstraction (Groq, GitHub, Google)
+  ├── ai_engine.py       → RAG retrieval + Weighted user profile analysis
+  ├── llm_providers.py   → Multi-LLM provider routing (Groq, GitHub Models)
   ├── tmdb.py           → TMDB API wrapper with caching
   └── search.py         → Trending search aggregation
 ```
 
+### RAG (Retrieval-Augmented Generation) Pipeline
+CineMind implements a sophisticated RAG architecture for personalized recommendations:
+
+**1. Retrieval Phase** - Multi-source context gathering:
+- User interaction data (ratings, watchlist, preferences)
+- TMDB top-rated movies filtered by genre/category
+- Previously rated movies (used for exclusion)
+- Saved watchlist items
+
+**2. Augmentation Phase** - Context enrichment:
+- Weighted user profile with priority hierarchy (HATED > LOVED > SAVED > LIKED)
+- TMDB data formatted as structured context
+- Watchlist and rated movies added to prompt
+- Intent classification (personalization, best/top queries, genre detection)
+
+**3. Generation Phase** - Intelligent LLM routing:
+- **Groq (Llama 3.1)**: Fast inference for simple queries (<220 chars, no complex keywords)
+- **GitHub Models (GPT-4o)**: Complex queries, personalization, reasoning tasks
+- Dynamic provider selection based on query complexity and user needs
+
 ## Key Features
 
-✨ **AI-Powered Recommendations**
-- Weighted user profile analysis (loved, saved, liked, hated movies)
-- Multi-LLM support with fallback mechanisms
-- Context-aware movie suggestions based on interaction history
+✨ **AI-Powered Recommendations (RAG-based)**
+- **RAG Pipeline**: Retrieval-Augmented Generation for context-aware suggestions
+- **Weighted User Profiling**: Priority hierarchy system (HATED > LOVED > SAVED > LIKED)
+  - HATED: Movies rated 1-2 (avoid similar patterns)
+  - LOVED: Movies rated 5 (strongest positive signal)
+  - SAVED: Watchlist items without high ratings
+  - LIKED: Movies rated 3-4 (general interest)
+- **Smart LLM Routing**: Automatic provider selection (Groq for speed, GPT-4o for complexity)
+- **Multi-source Context**: Combines user interactions + TMDB data + genre preferences
+- **No Duplicate Categories**: Each movie appears in only one priority bucket
 
 🔍 **Smart Search & Discovery**
 - Real-time search with debouncing (React-use)

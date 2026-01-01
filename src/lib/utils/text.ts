@@ -7,11 +7,6 @@ export function sanitizeChatText(text: string, userQuery?: string): string {
   // Collapse whitespace
   t = t.replace(/\s+/g, " ").trim();
 
-  // If the user asked for saved/watchlist, be concise
-  if (userQuery && /saved|watchlist|later/i.test(userQuery)) {
-    return "Here are picks from your saved list.";
-  }
-
   // Prefer the first sentence or cap length
   const firstSentenceMatch = t.match(/^(.*?[.!?])\s/);
   if (firstSentenceMatch) {
