@@ -1,145 +1,508 @@
 <div align="center">
   <br />
   
-  <h1>🎬 CineMind AI</h1>
+  # 🎬 CineMind AI - Frontend
   
   <div>
     <img src="https://img.shields.io/badge/-Next.js_16-black?style=for-the-badge&logoColor=white&logo=next.js&color=000000" alt="next.js" />
-    <img src="https://img.shields.io/badge/-Django_5.1-black?style=for-the-badge&logoColor=white&logo=django&color=092E20" alt="django" />
+    <img src="https://img.shields.io/badge/-React_19-black?style=for-the-badge&logoColor=white&logo=react&color=61DAFB" alt="react" />
     <img src="https://img.shields.io/badge/-TypeScript-black?style=for-the-badge&logoColor=white&logo=typescript&color=3178C6" alt="typescript" />
-    <img src="https://img.shields.io/badge/-Tailwind_CSS-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
-    <img src="https://img.shields.io/badge/-React_Query-black?style=for-the-badge&logoColor=white&logo=react&color=FF4154" alt="react-query" />
+    <img src="https://img.shields.io/badge/-Tailwind_CSS_4-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
+    <img src="https://img.shields.io/badge/-React_Query-black?style=for-the-badge&logoColor=white&logo=reactquery&color=FF4154" alt="react-query" />
   </div>
 
-  <h3 align="center">Intelligent Movie Discovery Platform with AI-Powered Recommendations</h3>
+  <h3 align="center">✨ Modern Movie Discovery UI with AI-Powered Chat Assistant</h3>
+
+  <br />
+
+  <div>
+    <img src="https://img.shields.io/badge/shadcn/ui-000000?style=flat-square&logo=shadcnui&logoColor=white" alt="shadcn" />
+    <img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=flat-square&logo=framer&logoColor=white" alt="framer" />
+    <img src="https://img.shields.io/badge/Axios-5A29E4?style=flat-square&logo=axios&logoColor=white" alt="axios" />
+    <img src="https://img.shields.io/badge/Radix_UI-161618?style=flat-square&logo=radixui&logoColor=white" alt="radix" />
+    <img src="https://img.shields.io/badge/MUI-007FFF?style=flat-square&logo=mui&logoColor=white" alt="mui" />
+  </div>
 
 </div>
 
+---
+
 ## 📋 Table of Contents
 
-1. [Introduction](#introduction)
-2. [Core Tech Stack](#core-tech-stack)
-3. [Architecture](#architecture)
-4. [Key Features](#key-features)
-5. [Getting Started](#getting-started)
+- [🎯 Overview](#-overview)
+- [🏗️ Architecture](#️-architecture)
+- [📦 Tech Stack](#-tech-stack)
+- [🧩 Component Structure](#-component-structure)
+- [🪝 Custom Hooks](#-custom-hooks)
+- [🎨 Key Features](#-key-features)
+- [⚡ Getting Started](#-getting-started)
+- [📂 Project Structure](#-project-structure)
 
-## Introduction
+---
 
-**CineMind AI** is a full-stack movie discovery platform that combines modern web technologies with AI intelligence. The application uses LLM APIs (Groq, GitHub Models) and the TMDB API to deliver intelligent movie recommendations based on user preferences, while providing a responsive, type-safe user experience with Next.js and Django.
+## 🎯 Overview
 
-## Core Tech Stack
+The **CineMind Frontend** is a modern, responsive React application built with Next.js 16 and TypeScript. It provides an intuitive interface for movie discovery, featuring an AI-powered chat assistant, real-time search, and personalized recommendations.
 
-### Frontend Architecture
-| Category | Technologies |
-|----------|---|
-| **Framework** | Next.js  (Turbopack), React  with TypeScript |
-| **State Management** | TanStack React Query  |
-| **UI Components** | shadcn/ui (Radix UI), Material-UI, Lucide Icons |
-| **Styling** | Tailwind CSS , Framer Motion |
-| **HTTP Client** | Axios with custom interceptors |
-| **Utilities** | React-use hooks, Class Variance Authority |
+### ✨ Highlights
 
-### Backend Architecture
-| Category | Technologies |
-|----------|---|
-| **Framework** | Django , Django REST Framework |
-| **Database** | SQLite (dev), PostgreSQL-ready |
-| **AI/LLM Providers** | Groq API, GitHub Models (OpenAI-compatible), Google Generative AI |
-| **External APIs** | TMDB API |
-| **Middleware** | Django CORS Headers, WhiteNoise, Gunicorn |
-| **Config Management** | Python-decouple |
+- ⚡ **Next.js 16** with Turbopack for blazing-fast development
+- 🎨 **shadcn/ui + Tailwind CSS 4** for beautiful, accessible components
+- 🔄 **TanStack React Query** for intelligent server state management
+- 💬 **AI Chat Assistant** with expandable chat interface
+- 🎭 **Framer Motion** for smooth, delightful animations
+- 📱 **Mobile-First** responsive design
 
-### APIs & Integrations
-- **TMDB API**: Movie data, cast information, recommendations, trending content
-- **Groq LLM**: Fast inference for AI recommendations (Llama 3.1)
-- **GitHub Models API**: OpenAI-compatible GPT-4o integration
-- **Google Generative AI**: Alternative LLM provider
+---
 
-## 🛠️ Skills Demonstrated
+## 🏗️ Architecture
 
-**Frontend Development**: React · Next.js · TypeScript · TanStack Query · Tailwind CSS · Responsive Design · Component Architecture · Custom Hooks · API Integration · State Management
-
-**Backend Development**: Django · Django REST Framework · RESTful API Design · Database Modeling · Authentication & Authorization · Middleware · CORS Configuration · Environment Management
-
-**AI/ML Engineering**: RAG (Retrieval-Augmented Generation) · LLM Integration · Multi-provider Routing · Prompt Engineering · Context Window Optimization · Intent Classification
-
-**Full-Stack Integration**: API Design & Consumption · JWT Authentication · Real-time Search · Data Caching · Error Handling · Performance Optimization
-
-**DevOps & Tools**: Git · Environment Variables · API Security · Deployment Configuration · Database Migration
-
-## Architecture
-
-### Frontend Components
-- **Reusable UI Components**: Custom buttons, cards, carousels, chat bubbles, expandable chat
-- **Custom Hooks**: `useAuthGate`, `useNotification`, `useSavedMovies`, `use-auto-scroll`
-- **Smart Pages**: Authentication routes, movie details with cast, recommendations, saved movies list
-- **React Query Integration**: Server state management with devtools for debugging
-
-### Backend Services
 ```
-core/services/
-  ├── ai_engine.py       → RAG retrieval + Weighted user profile analysis
-  ├── llm_providers.py   → Multi-LLM provider routing (Groq, GitHub Models)
-  ├── tmdb.py           → TMDB API wrapper with caching
-  └── search.py         → Trending search aggregation
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                          🎬 CineMind Frontend                               │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                        📱 App Shell (layout.tsx)                     │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────────────────────┐  │   │
+│  │  │ 🔔 Notif    │  │ 💬 Chat     │  │ 🔄 Query                    │  │   │
+│  │  │ Provider    │  │ Provider    │  │ Provider (React Query)      │  │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────────────────────┘  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                         📄 Pages (App Router)                        │   │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐            │   │
+│  │  │ 🏠 Home  │  │ 🎬 Movie │  │ 💾 Saved │  │ 🔐 Auth  │            │   │
+│  │  │ page.tsx │  │ [id]/    │  │ page.tsx │  │ login/   │            │   │
+│  │  │          │  │ page.tsx │  │          │  │ signup/  │            │   │
+│  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                       🧩 Components Library                          │   │
+│  │                                                                      │   │
+│  │  ┌─────────────────┐  ┌─────────────────┐  ┌─────────────────┐     │   │
+│  │  │  🎬 movies/     │  │  🎭 movie-info/ │  │  💾 saved/      │     │   │
+│  │  │  ├ MovieCard    │  │  ├ CastGrid     │  │  └ SavedMovies  │     │   │
+│  │  │  ├ Search       │  │  ├ StarRating   │  │     List        │     │   │
+│  │  │  ├ Trending     │  │  ├ Interactions │  │                 │     │   │
+│  │  │  │  Carousel    │  │  └ Recommend    │  │                 │     │   │
+│  │  │  └ Assistant    │  │     Carousel    │  │                 │     │   │
+│  │  │     Chat        │  │                 │  │                 │     │   │
+│  │  └─────────────────┘  └─────────────────┘  └─────────────────┘     │   │
+│  │                                                                      │   │
+│  │  ┌─────────────────────────────────────────────────────────────┐   │   │
+│  │  │                    🎨 ui/ (shadcn/ui)                        │   │   │
+│  │  │  button · card · avatar · carousel · chat-input · ChatBubble │   │   │
+│  │  │  ChatMessageList · expandable-chat · input · separator · ... │   │   │
+│  │  └─────────────────────────────────────────────────────────────┘   │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                         🪝 Hooks & Utils                             │   │
+│  │  ┌─────────────┐  ┌─────────────┐  ┌─────────────┐  ┌───────────┐  │   │
+│  │  │ useAuthGate │  │ useNotif    │  │ useSaved    │  │ useAuto   │  │   │
+│  │  │             │  │ ication     │  │ Movies      │  │ Scroll    │  │   │
+│  │  └─────────────┘  └─────────────┘  └─────────────┘  └───────────┘  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+│                                    ▼                                        │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │                        🌐 API Layer (lib/api/)                       │   │
+│  │              Axios Interceptors · React Query · Error Handling       │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                    │                                        │
+└────────────────────────────────────┼────────────────────────────────────────┘
+                                     │
+                                     ▼
+                          ┌─────────────────────┐
+                          │   🔌 Backend API    │
+                          │   (Django REST)     │
+                          └─────────────────────┘
 ```
 
-### RAG (Retrieval-Augmented Generation) Pipeline
-CineMind implements a sophisticated RAG architecture for personalized recommendations:
+---
 
-**1. Retrieval Phase** - Multi-source context gathering:
-- User interaction data (ratings, watchlist, preferences)
-- TMDB top-rated movies filtered by genre/category
-- Previously rated movies (used for exclusion)
-- Saved watchlist items
+## 📦 Tech Stack
 
-**2. Augmentation Phase** - Context enrichment:
-- Weighted user profile with priority hierarchy (HATED > LOVED > SAVED > LIKED)
-- TMDB data formatted as structured context
-- Watchlist and rated movies added to prompt
-- Intent classification (personalization, best/top queries, genre detection)
+### 🎯 Core Framework
 
-**3. Generation Phase** - Intelligent LLM routing:
-- **Groq (Llama 3.1)**: Fast inference for simple queries (<220 chars, no complex keywords)
-- **GitHub Models (GPT-4o)**: Complex queries, personalization, reasoning tasks
-- Dynamic provider selection based on query complexity and user needs
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **Next.js** | 16.x | React framework with App Router |
+| **React** | 19.x | UI library |
+| **TypeScript** | 5.x | Type-safe development |
+| **Turbopack** | Built-in | Fast bundler |
 
-## Key Features
+### 🎨 UI & Styling
 
-✨ **AI-Powered Recommendations (RAG-based)**
-- **RAG Pipeline**: Retrieval-Augmented Generation for context-aware suggestions
-- **Weighted User Profiling**: Priority hierarchy system (HATED > LOVED > SAVED > LIKED)
-  - HATED: Movies rated 1-2 (avoid similar patterns)
-  - LOVED: Movies rated 5 (strongest positive signal)
-  - SAVED: Watchlist items without high ratings
-  - LIKED: Movies rated 3-4 (general interest)
-- **Smart LLM Routing**: Automatic provider selection (Groq for speed, GPT-4o for complexity)
-- **Multi-source Context**: Combines user interactions + TMDB data + genre preferences
-- **No Duplicate Categories**: Each movie appears in only one priority bucket
+| Technology | Purpose |
+|------------|---------|
+| **Tailwind CSS 4** | Utility-first styling |
+| **shadcn/ui** | Accessible component primitives |
+| **Radix UI** | Headless UI components |
+| **Material-UI** | Additional components & icons |
+| **Framer Motion** | Animations & transitions |
+| **Lucide Icons** | Beautiful icon library |
+| **Embla Carousel** | Touch-friendly carousels |
 
-🔍 **Smart Search & Discovery**
-- Real-time search with debouncing (React-use)
-- Trending movies with algorithm-based ranking
-- Trending search tracking and analytics
+### 🔄 State & Data
 
-🎬 **Rich Movie Information**
-- Comprehensive details: ratings, runtime, release dates, overviews
-- Cast carousels with profile images
-- Movie recommendations carousel per title
-- Pagination for large datasets
+| Technology | Purpose |
+|------------|---------|
+| **TanStack React Query** | Server state management |
+| **Axios** | HTTP client with interceptors |
+| **React-use** | Utility hooks (debounce, etc.) |
 
-💾 **User Interactions**
-- Save movies to personal watchlist
-- Star rating system (1-5 scale)
-- Movie interaction tracking with weighted preferences
-- User avatar support
+### 🛠️ Utilities
 
-🎨 **Modern UI/UX**
-- Responsive design (mobile-first)
-- Smooth animations (Framer Motion)
-- Custom carousels (Embla Carousel)
-- Dark/Light theme support
-- Type-safe components (TypeScript)
+| Technology | Purpose |
+|------------|---------|
+| **Class Variance Authority** | Component variants |
+| **clsx + tailwind-merge** | Conditional class merging |
+| **tw-animate-css** | Animation utilities |
+
+---
+
+## 🧩 Component Structure
+
+### 🎬 Movie Components (`components/movies/`)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     🎬 Movie Components                      │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────┐       ┌─────────────────────────────┐ │
+│  │   🎴 MovieCard  │       │     🔍 Search               │ │
+│  │                 │       │                             │ │
+│  │  • Poster       │       │  • Real-time search input   │ │
+│  │  • Title        │       │  • Debounced API calls      │ │
+│  │  • Rating       │       │  • Auto-suggestions         │ │
+│  │  • Save button  │       │  • Trending integration     │ │
+│  │  • Hover effects│       │                             │ │
+│  └─────────────────┘       └─────────────────────────────┘ │
+│                                                             │
+│  ┌─────────────────┐       ┌─────────────────────────────┐ │
+│  │ 📈 Trending     │       │  💬 MovieAssistantChat      │ │
+│  │    Carousel     │       │                             │ │
+│  │                 │       │  • Expandable chat UI       │ │
+│  │  • Auto-scroll  │       │  • AI recommendations       │ │
+│  │  • Touch support│       │  • Message bubbles          │ │
+│  │  • Embla powered│       │  • Context-aware            │ │
+│  └─────────────────┘       └─────────────────────────────┘ │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 🎭 Movie Info Components (`components/movie-info/`)
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                   🎭 Movie Info Components                   │
+├─────────────────────────────────────────────────────────────┤
+│                                                             │
+│  ┌─────────────────┐       ┌─────────────────────────────┐ │
+│  │  👥 CastGrid    │       │   ⭐ StarRating             │ │
+│  │                 │       │                             │ │
+│  │  • Actor cards  │       │  • 1-5 star rating          │ │
+│  │  • Profile pics │       │  • 0.5 increments           │ │
+│  │  • Character    │       │  • Interactive hover        │ │
+│  │    names        │       │  • Persisted to backend     │ │
+│  └─────────────────┘       └─────────────────────────────┘ │
+│                                                             │
+│  ┌─────────────────┐       ┌─────────────────────────────┐ │
+│  │ 🎬 Recommend    │       │  💾 MovieInteractions       │ │
+│  │    Carousel     │       │                             │ │
+│  │                 │       │  • Save/unsave toggle       │ │
+│  │  • Similar films│       │  • Rating display           │ │
+│  │  • TMDB powered │       │  • Interaction state        │ │
+│  │  • Click to view│       │  • Optimistic updates       │ │
+│  └─────────────────┘       └─────────────────────────────┘ │
+│                                                             │
+└─────────────────────────────────────────────────────────────┘
+```
+
+### 🎨 UI Components (`components/ui/`)
+
+| Component | Description |
+|-----------|-------------|
+| `button.tsx` | Variant-based button with CVA |
+| `card.tsx` | Container with header, content, footer |
+| `avatar.tsx` | User profile pictures |
+| `carousel.tsx` | Embla-powered carousel wrapper |
+| `chat-input.tsx` | AI chat input field |
+| `ChatBubble.tsx` | Message bubble (user/AI) |
+| `ChatMessageList.tsx` | Scrollable message container |
+| `expandable-chat.tsx` | Collapsible chat panel |
+| `input.tsx` | Styled form inputs |
+| `separator.tsx` | Visual dividers |
+
+---
+
+## 🪝 Custom Hooks
+
+```
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            🪝 Custom Hooks                                  │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🔐 useAuthGate                                                      │   │
+│  │  ────────────────────────────────────────────────────────────────    │   │
+│  │  Protects routes requiring authentication                           │   │
+│  │  • Redirects to login if unauthenticated                            │   │
+│  │  • Returns loading state during auth check                          │   │
+│  │  • Integrates with token-based auth                                 │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  🔔 useNotification                                                  │   │
+│  │  ────────────────────────────────────────────────────────────────    │   │
+│  │  Global notification/toast system                                   │   │
+│  │  • Success, error, info, warning types                              │   │
+│  │  • Auto-dismiss with configurable duration                          │   │
+│  │  • Queue management for multiple toasts                             │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  💾 useSavedMovies                                                   │   │
+│  │  ────────────────────────────────────────────────────────────────    │   │
+│  │  Manages user's watchlist/saved movies                              │   │
+│  │  • Fetch saved movies with React Query                              │   │
+│  │  • Toggle save state with optimistic updates                        │   │
+│  │  • Cache invalidation on mutations                                  │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  📜 use-auto-scroll                                                  │   │
+│  │  ────────────────────────────────────────────────────────────────    │   │
+│  │  Auto-scrolls chat messages to bottom                               │   │
+│  │  • Smooth scroll behavior                                           │   │
+│  │  • Triggers on new message                                          │   │
+│  │  • Respects user scroll position                                    │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🎨 Key Features
+
+### 💬 AI Chat Assistant
+
+```
+┌─────────────────────────────────────────┐
+│  🤖 AI Movie Assistant                  │
+├─────────────────────────────────────────┤
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │ 👤 "Recommend me something      │   │
+│  │     like Inception"             │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │ 🤖 Based on your love for       │   │
+│  │ mind-bending thrillers, try:    │   │
+│  │                                 │   │
+│  │ • Interstellar (2014)           │   │
+│  │ • Tenet (2020)                  │   │
+│  │ • The Prestige (2006)           │   │
+│  └─────────────────────────────────┘   │
+│                                         │
+│  ┌─────────────────────────────────┐   │
+│  │ 💬 Type your message...    [➤] │   │
+│  └─────────────────────────────────┘   │
+└─────────────────────────────────────────┘
+```
+
+- 🎯 **Context-Aware** - Uses your ratings & watchlist
+- ⚡ **Real-time** - Instant AI responses
+- 📱 **Expandable UI** - Minimizes to corner button
+- 🎨 **Beautiful Bubbles** - User/AI message styling
+
+### 🔍 Smart Search
+
+- ⌨️ **Debounced Input** - React-use powered
+- 📈 **Trending Suggestions** - Popular searches
+- 🔄 **Real-time Results** - Instant feedback
+- 📊 **Search Analytics** - Tracks trending terms
+
+### 🎬 Movie Discovery
+
+- 🎴 **Beautiful Cards** - Poster, rating, actions
+- 📈 **Trending Carousel** - Weekly hot movies
+- 👥 **Cast Information** - Actor grids with photos
+- 🎬 **Recommendations** - Similar movies carousel
+
+### 💾 User Features
+
+- ⭐ **Star Ratings** - 1-5 with 0.5 increments
+- 📌 **Save to Watchlist** - Quick save toggle
+- 👤 **User Profiles** - Avatar support
+- 🔐 **Authentication** - Token-based auth
+
+### 🎨 UI/UX Excellence
+
+- 📱 **Mobile-First** - Responsive on all devices
+- 🌊 **Smooth Animations** - Framer Motion
+- 🎠 **Touch Carousels** - Embla-powered
+- ♿ **Accessible** - Radix UI primitives
+
+---
+
+## ⚡ Getting Started
+
+### 📋 Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Backend API running (see [Backend README](../Backend/README.md))
+
+### 🛠️ Installation
+
+```bash
+# 1. Navigate to frontend directory
+cd Frontend
+
+# 2. Install dependencies
+npm install
+
+# 3. Create environment file
+cp .env.example .env.local
+
+# 4. Configure API URL in .env.local
+NEXT_PUBLIC_API_URL=http://localhost:8000/api
+
+# 5. Start development server
+npm run dev
+```
+
+The app will be available at `http://localhost:3000`
+
+### 📜 Available Scripts
+
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server (Turbopack) |
+| `npm run build` | Build for production |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+
+---
+
+## 📂 Project Structure
+
+```
+Frontend/
+├── 📄 package.json              # Dependencies & scripts
+├── 📄 next.config.ts            # Next.js configuration
+├── 📄 tsconfig.json             # TypeScript config
+├── 📄 tailwind.config.ts        # Tailwind CSS config
+├── 📄 components.json           # shadcn/ui config
+│
+├── 📁 public/                   # Static assets
+│   ├── icons/                   # App icons
+│   └── readme/                  # README images
+│
+└── 📁 src/
+    ├── 📁 app/                  # 📱 Next.js App Router
+    │   ├── layout.tsx           # Root layout + providers
+    │   ├── page.tsx             # 🏠 Home page
+    │   │
+    │   ├── 📁 (auth)/           # 🔐 Auth routes (grouped)
+    │   │   ├── login/
+    │   │   └── signup/
+    │   │
+    │   ├── 📁 movie/[id]/       # 🎬 Dynamic movie pages
+    │   │
+    │   ├── 📁 saved/            # 💾 Saved movies page
+    │   │
+    │   └── 📁 hooks/            # Page-specific hooks
+    │       ├── useAuthGate.ts
+    │       ├── useNotification.ts
+    │       └── useSavedMovies.ts
+    │
+    ├── 📁 components/           # 🧩 React Components
+    │   ├── Pagination.tsx
+    │   ├── Spinner.tsx
+    │   │
+    │   ├── 📁 movies/           # 🎬 Movie-related
+    │   │   ├── MovieCard.tsx
+    │   │   ├── MovieAssistantChat.tsx
+    │   │   ├── Search.tsx
+    │   │   └── TrendingCarousel.tsx
+    │   │
+    │   ├── 📁 movie-info/       # 🎭 Movie detail page
+    │   │   ├── CastGrid.tsx
+    │   │   ├── MovieInteractions.tsx
+    │   │   ├── RecommendationsCarousel.tsx
+    │   │   └── StarRating.tsx
+    │   │
+    │   ├── 📁 saved/            # 💾 Saved movies
+    │   │   └── SavedMoviesList.tsx
+    │   │
+    │   ├── 📁 ui/               # 🎨 shadcn/ui components
+    │   │   ├── button.tsx
+    │   │   ├── card.tsx
+    │   │   ├── avatar.tsx
+    │   │   ├── carousel.tsx
+    │   │   ├── chat-input.tsx
+    │   │   ├── ChatBubble.tsx
+    │   │   ├── ChatMessageList.tsx
+    │   │   ├── expandable-chat.tsx
+    │   │   └── ...
+    │   │
+    │   ├── 📁 user/             # 👤 User components
+    │   │
+    │   └── 📁 hooks/            # 🪝 Component hooks
+    │       └── use-auto-scroll.tsx
+    │
+    ├── 📁 hooks/                # 🪝 Global hooks
+    │   ├── useAuthGate.ts
+    │   └── useNotification.ts
+    │
+    ├── 📁 lib/                  # 🔧 Utilities
+    │   ├── react-query.ts       # React Query config
+    │   ├── 📁 api/              # API client functions
+    │   └── 📁 utils/            # Helper functions
+    │
+    ├── 📁 providers/            # 🔄 Context Providers
+    │   ├── ChatProvider.tsx
+    │   ├── NotificationProvider.tsx
+    │   └── QueryProvider.tsx
+    │
+    ├── 📁 styles/               # 🎨 Global styles
+    │   ├── globals.css
+    │   └── App.css
+    │
+    └── 📁 types/                # 📝 TypeScript types
+        ├── movie.ts
+        ├── movieDetail.ts
+        └── User.ts
+```
+
+---
+
+## 🔗 Related
+
+- 🔙 [Backend README](../Backend/README.md) - Django REST API documentation
+- 📖 [Deployment Guide](../Backend/DEPLOYMENT.md) - Production deployment
+
+---
+
+<div align="center">
+  
+  **Built with ❤️ using Next.js, React & TypeScript**
+  
+  ⭐ Star this repo if you found it helpful!
+  
+</div>
 
 
 
