@@ -48,8 +48,9 @@ export function SignupForm({
       if (response?.success && response.user) {
         setCurrentUser(response.user)
         
-        // CRITICAL: Invalidate auth cache so useAuthGate picks up the signup immediately
-        await queryClient.invalidateQueries({ queryKey: ['auth', 'user'] })
+        // CRITICAL: Set user directly in cache instead of invalidating
+        // This avoids triggering a profile fetch before the cookie is ready
+        queryClient.setQueryData(['auth', 'user'], response.user)
         
         notify.success("Account created successfully", "Welcome!", 2000)
         router.push("/")

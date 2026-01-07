@@ -46,8 +46,9 @@ export function LoginForm({
       // Login successful - Token is now in HTTP-only cookie (set by backend) - XSS safe!
       setCurrentUser(response.user)
       
-      // CRITICAL: Invalidate auth cache so useAuthGate picks up the login immediately
-      await queryClient.invalidateQueries({ queryKey: ['auth', 'user'] })
+      // CRITICAL: Set user directly in cache instead of invalidating
+      // This avoids triggering a profile fetch before the cookie is ready
+      queryClient.setQueryData(['auth', 'user'], response.user)
       
       notify.success('Login Successful', 'Welcome back!', 2000)
       router.push('/')
