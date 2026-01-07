@@ -14,6 +14,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useNotification } from "@/hooks/useNotification"
 import { authAPI } from "@/lib/api"
+import { setCurrentUser } from "@/lib/utils/auth-utils"
 
 type SignupData = {
   email: string
@@ -42,9 +43,9 @@ export function SignupForm({
   const mutation = useMutation({
     mutationFn: async (data: SignupData) => {
       const response = await authAPI.register(data)
-      if (response?.success && response.token && response.user) {
-        localStorage.setItem("authToken", response.token)
-        localStorage.setItem("user", JSON.stringify(response.user))
+      // Token is now in HTTP-only cookie (set by backend) - XSS safe!
+      if (response?.success && response.user) {
+        setCurrentUser(response.user)
         notify.success("Account created successfully", "Welcome!", 2000)
         router.push("/")
       } else {

@@ -42,7 +42,14 @@ export function MovieAssistantChat() {
     setIsChatLoading(true);
 
     try {
-      const response = await sendChatMessage(userMessage);
+      // Build conversation history from previous messages (last 10 for context)
+      const history = messages.slice(-10).map((msg) => ({
+        role: msg.sender === 'user' ? 'user' as const : 'assistant' as const,
+        content: msg.content,
+        movies: msg.movies?.map((m) => ({ id: m.id, title: m.title })),
+      }));
+      
+      const response = await sendChatMessage(userMessage, history);
       let aiText = sanitizeChatText(response?.response_text ?? "", userMessage);
       if (!aiText || aiText.length < 2) {
         // Fallback based on intent

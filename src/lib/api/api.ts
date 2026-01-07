@@ -51,9 +51,15 @@ export async function getSavedMovies() {
   return res.data;
 }
 
-// AI chat
-export async function sendChatMessage(message: string) {
-  const res = await api.post('chat/', { message });
+// AI chat with conversation history
+type ChatMessage = {
+  role: 'user' | 'assistant';
+  content: string;
+  movies?: { id: number; title: string }[];
+};
+
+export async function sendChatMessage(message: string, history: ChatMessage[] = []) {
+  const res = await api.post('chat/', { message, history });
   return res.data as { response_text: string; movies?: any[] };
 }
 

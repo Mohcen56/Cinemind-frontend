@@ -38,7 +38,7 @@ export const authAPI = {
     username?: string;
   }) => {
     try {
-      const response = await api.post('auth/register/', {
+      const response = await api.post('/auth/register/', {
         username: userData.username,
         email: userData.email,
         password: userData.password,

@@ -5,6 +5,7 @@ import { QueryProvider } from "@/providers/QueryProvider";
 import { ChatProvider } from "@/providers/ChatProvider";
 import { NotificationProvider } from "@/providers/NotificationProvider";
 import { MovieAssistantChat } from "@/components/movies/MovieAssistantChat";
+import ClientLayout from "@/components/ClientLayout";
 
 export const metadata: Metadata = {
   title: "Cinemind",
@@ -34,9 +35,11 @@ export default function RootLayout({
         <NotificationProvider>
           <ChatProvider>
             <QueryProvider>
-              {children}
+              <ClientLayout>
+                {children}
+              </ClientLayout>
+              <MovieAssistantChat />
             </QueryProvider>
-            <MovieAssistantChat />
           </ChatProvider>
         </NotificationProvider>
       </body>

@@ -7,14 +7,7 @@ export function sanitizeChatText(text: string, userQuery?: string): string {
   // Collapse whitespace
   t = t.replace(/\s+/g, " ").trim();
 
-  // Prefer the first sentence or cap length
-  const firstSentenceMatch = t.match(/^(.*?[.!?])\s/);
-  if (firstSentenceMatch) {
-    t = firstSentenceMatch[1].trim();
-  }
+ 
 
-  if (t.length > 160) {
-    t = t.slice(0, 157).trim() + "...";
-  }
   return t;
 }

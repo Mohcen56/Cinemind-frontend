@@ -15,6 +15,7 @@ import { useRouter } from "next/navigation"
 import { authAPI } from "@/lib/api/auth"
 import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
+import { setCurrentUser } from "@/lib/utils/auth-utils"
 
 type LoginData = {
   email: string
@@ -35,9 +36,9 @@ export function LoginForm({
     mutationFn: async (data: LoginData) => {
       const response = await authAPI.login(data.email, data.password)
       
-      if (response?.success && response.token && response.user) {
-        localStorage.setItem('authToken', response.token)
-        localStorage.setItem('user', JSON.stringify(response.user))
+      // Token is now in HTTP-only cookie (set by backend) - XSS safe!
+      if (response?.success && response.user) {
+        setCurrentUser(response.user)
         notify.success('Login Successful', 'Welcome back!', 2000)
         router.push('/')
       } else {
