@@ -48,8 +48,10 @@ The **CineMind Frontend** is a modern, responsive React application built with N
 
 - ⚡ **Next.js 16** with Turbopack for blazing-fast development
 - 🎨 **shadcn/ui + Tailwind CSS 4** for beautiful, accessible components
-- 🔄 **TanStack React Query** for intelligent server state management
-- 💬 **AI Chat Assistant** with expandable chat interface
+- 🔄 **TanStack React Query** for intelligent server state management & caching
+- 🔐 **HTTP-Only Cookie Auth** - XSS-safe authentication (no localStorage tokens)
+- 🚨 **Error Boundary** - Graceful error handling with fallback UI
+- 💬 **AI Chat Assistant** with expandable chat interface & conversation memory
 - 🎭 **Framer Motion** for smooth, delightful animations
 - 📱 **Mobile-First** responsive design
 
@@ -154,8 +156,8 @@ The **CineMind Frontend** is a modern, responsive React application built with N
 
 | Technology | Purpose |
 |------------|---------|
-| **TanStack React Query** | Server state management |
-| **Axios** | HTTP client with interceptors |
+| **TanStack React Query** | Server state management with 5-min cache |
+| **Axios** | HTTP client with credentials (withCredentials: true) |
 | **React-use** | Utility hooks (debounce, etc.) |
 
 ### 🛠️ Utilities
@@ -165,6 +167,14 @@ The **CineMind Frontend** is a modern, responsive React application built with N
 | **Class Variance Authority** | Component variants |
 | **clsx + tailwind-merge** | Conditional class merging |
 | **tw-animate-css** | Animation utilities |
+
+### 🔐 Security
+
+| Technology | Purpose |
+|------------|---------|
+| **HTTP-Only Cookies** | XSS-safe token storage (server-side) |
+| **Error Boundary** | Graceful error handling |
+| **CORS with Credentials** | Secure cross-origin requests |
 
 ---
 
@@ -322,6 +332,7 @@ The **CineMind Frontend** is a modern, responsive React application built with N
 ```
 
 - 🎯 **Context-Aware** - Uses your ratings & watchlist
+- 💬 **Conversation Memory** - Maintains chat history & can explain recommendations
 - ⚡ **Real-time** - Instant AI responses
 - 📱 **Expandable UI** - Minimizes to corner button
 - 🎨 **Beautiful Bubbles** - User/AI message styling
@@ -345,7 +356,9 @@ The **CineMind Frontend** is a modern, responsive React application built with N
 - ⭐ **Star Ratings** - 1-5 with 0.5 increments
 - 📌 **Save to Watchlist** - Quick save toggle
 - 👤 **User Profiles** - Avatar support
-- 🔐 **Authentication** - Token-based auth
+- 🔐 **HTTP-Only Cookie Auth** - XSS-safe authentication (tokens stored server-side)
+- 🔄 **React Query Caching** - Optimized auth state with 5-min staleness
+- 🚨 **Error Boundary** - Graceful error handling throughout the app
 
 ### 🎨 UI/UX Excellence
 
@@ -429,6 +442,8 @@ Frontend/
     │       └── useSavedMovies.ts
     │
     ├── 📁 components/           # 🧩 React Components
+    │   ├── ErrorBoundary.tsx    # 🚨 Error handling wrapper
+    │   ├── ClientLayout.tsx     # 👶 Client-side layout with error boundary
     │   ├── Pagination.tsx
     │   ├── Spinner.tsx
     │   │
@@ -470,7 +485,12 @@ Frontend/
     ├── 📁 lib/                  # 🔧 Utilities
     │   ├── react-query.ts       # React Query config
     │   ├── 📁 api/              # API client functions
+    │   │   ├── axios.ts         # 🔐 Axios with withCredentials
+    │   │   ├── auth.ts          # Auth API calls
+    │   │   └── api.ts           # General API calls
     │   └── 📁 utils/            # Helper functions
+    │       ├── auth-utils.ts    # 🔐 Auth helpers (localStorage for UI only)
+    │       └── text.ts          # Text sanitization
     │
     ├── 📁 providers/            # 🔄 Context Providers
     │   ├── ChatProvider.tsx
