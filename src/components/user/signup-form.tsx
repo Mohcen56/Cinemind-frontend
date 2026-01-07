@@ -10,7 +10,7 @@ import {
 } from "../ui/field"
 import { Input } from "../ui/input"
 import { useState } from "react"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "next/navigation"
 import { useNotification } from "@/hooks/useNotification"
 import { authAPI } from "@/lib/api"
@@ -31,6 +31,7 @@ export function SignupForm({
 }) {
   const router = useRouter()
   const notify = useNotification()
+  const queryClient = useQueryClient()
   
   const [formData, setFormData] = useState<SignupData>({
     email: "",
@@ -46,6 +47,10 @@ export function SignupForm({
       // Token is now in HTTP-only cookie (set by backend) - XSS safe!
       if (response?.success && response.user) {
         setCurrentUser(response.user)
+        
+        // CRITICAL: Invalidate auth cache so useAuthGate picks up the signup immediately
+        await queryClient.invalidateQueries({ queryKey: ['auth', 'user'] })
+        
         notify.success("Account created successfully", "Welcome!", 2000)
         router.push("/")
       } else {

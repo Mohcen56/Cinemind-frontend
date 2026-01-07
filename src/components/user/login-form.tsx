@@ -13,7 +13,7 @@ import { Input } from "../ui/input"
 import { useNotification } from "@/app/hooks/useNotification"
 import { useRouter } from "next/navigation"
 import { authAPI } from "@/lib/api/auth"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useState } from "react"
 import { setCurrentUser } from "@/lib/utils/auth-utils"
 
@@ -28,6 +28,7 @@ export function LoginForm({
 }: Omit<React.ComponentProps<"form">, "onSubmit">) {
   const router = useRouter()
   const notify = useNotification()
+  const queryClient = useQueryClient()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -44,6 +45,10 @@ export function LoginForm({
       
       // Login successful - Token is now in HTTP-only cookie (set by backend) - XSS safe!
       setCurrentUser(response.user)
+      
+      // CRITICAL: Invalidate auth cache so useAuthGate picks up the login immediately
+      await queryClient.invalidateQueries({ queryKey: ['auth', 'user'] })
+      
       notify.success('Login Successful', 'Welcome back!', 2000)
       router.push('/')
     },
