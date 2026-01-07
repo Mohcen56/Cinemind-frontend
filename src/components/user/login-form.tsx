@@ -36,19 +36,20 @@ export function LoginForm({
     mutationFn: async (data: LoginData) => {
       const response = await authAPI.login(data.email, data.password)
       
-      // Token is now in HTTP-only cookie (set by backend) - XSS safe!
-      if (response?.success && response.user) {
-        setCurrentUser(response.user)
-        notify.success('Login Successful', 'Welcome back!', 2000)
-        router.push('/')
-      } else {
+      // Check if login failed
+      if (!response?.success || !response.user) {
         const errorMsg = response?.error || 'Login failed'
-        notify.loginFailed(errorMsg)
         throw new Error(errorMsg)
       }
+      
+      // Login successful - Token is now in HTTP-only cookie (set by backend) - XSS safe!
+      setCurrentUser(response.user)
+      notify.success('Login Successful', 'Welcome back!', 2000)
+      router.push('/')
     },
     onError: (error: Error) => {
       setError(error.message)
+      notify.loginFailed(error.message)
     },
   })
 
