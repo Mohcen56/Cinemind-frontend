@@ -511,8 +511,8 @@ Frontend/
 
 ## 🔗 Related
 
-- 🔙 [Backend README](../Backend/README.md) - Django REST API documentation
-- 📖 [Deployment Guide](../Backend/DEPLOYMENT.md) - Production deployment
+- 🔙 [Backend README]([../Backend/README.md](https://github.com/Mohcen56/Cinemind-Backend)) - Django REST API documentation
+
 
 ---
 
