@@ -10,7 +10,7 @@
     <img src="https://img.shields.io/badge/-Tailwind_CSS_4-black?style=for-the-badge&logoColor=white&logo=tailwindcss&color=06B6D4" alt="tailwindcss" />
     <img src="https://img.shields.io/badge/-React_Query-black?style=for-the-badge&logoColor=white&logo=reactquery&color=FF4154" alt="react-query" />
   </div>
-
+ 
   <h3 align="center">✨ Modern Movie Discovery UI with AI-Powered Chat Assistant</h3>
 
   <br />
