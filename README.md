@@ -1,6 +1,5 @@
 <div align="center">
   <br />
-  
   # 🎬 CineMind AI - Frontend
   
   <div>
